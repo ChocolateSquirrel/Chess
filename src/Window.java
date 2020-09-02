@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public class Window extends JFrame {
 	private JPanel pan = new JPanel();
@@ -18,24 +20,33 @@ public class Window extends JFrame {
 	private JMenuItem quit = new JMenuItem("Quit");
 	private JMenuItem white = new JMenuItem(Player.WHITE.getName());
 	private JMenuItem black = new JMenuItem(Player.BLACK.getName());
-	
+
+	private JTable gameTable = new JTable(new ModelGameTable());
+
 	
 	public Window() {
+		build();
+		initMenu();
+		setVisible(true);
+	}
+	
+	private void build() {
 		setTitle("Chess");
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
-		setVisible(true);
 		
 		// Positioning different panels with layouts
 		pan.setBackground(Color.WHITE);
-		JPanel arrayPan = new JPanel();
-		arrayPan.setBackground(Color.BLUE);
-		JPanel chessboardPan = new JPanel();
-		chessboardPan.setBackground(Color.GREEN);
+		
+		GameTablePanel arrayPan = new GameTablePanel(gameTable);
+		ChessboardPanel chessboardPan = new ChessboardPanel();
+	
+	
 		JPanel cemeteryPan = new JPanel();
 		cemeteryPan.setBackground(Color.MAGENTA);
+		
 		JPanel dialogPan = new JPanel();
 		dialogPan.setBackground(Color.YELLOW);
 		
@@ -45,10 +56,9 @@ public class Window extends JFrame {
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		gbc.weightx = 0.25;
+		gbc.weightx = 0.5;
 		gbc.weighty = 1;
 		gbc.fill = GridBagConstraints.BOTH;
-		arrayPan.add(new GameTable());
 		pan.add(arrayPan, gbc);
 		
 		gbc.gridx = 2;
@@ -58,7 +68,7 @@ public class Window extends JFrame {
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 0.5;
+		gbc.weightx = 1;
 		pan.add(chessboardPan, gbc);
 		
 		gbc.gridx = 0;
@@ -69,8 +79,8 @@ public class Window extends JFrame {
 		pan.add(dialogPan, gbc);
 		
 		setContentPane(pan);
-		initMenu();
 	}
+	
 	
 	private void initMenu() {
 		newGame.add(white);
