@@ -10,14 +10,15 @@ public class ChessboardPanel extends JPanel {
 	private JPanel[][] gridPanels;
 	private Case[][] gridCases;
 	private JLabel label = new JLabel();
-	private String[] columnsNumbering = {" ", "a", "b", "c", "d", "e", "f", "g", "h", " "};
-	private String[] rowsNumbering = {" ", "1", "2", "3", "4", "5", "6", "7", "8", " "};
-	
+
 	public ChessboardPanel() {
 		setLayout(new GridBagLayout());
+		setBackground(Color.CYAN);
 		gridPanels = new JPanel[10][10];
 		displayCoordinates();
-		drawChessboard();	
+		drawChessboard();
+		createGridCases();
+		System.out.println(gridCases[5][4].givePositionOnChessboard());
 	}
 	
 	public void displayCoordinates() {
@@ -26,13 +27,13 @@ public class ChessboardPanel extends JPanel {
 		gbc.gridwidth = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		// Numbering of columns (a, b, ..., h)
-		// At top
 		for (int i = 0; i<10; i++) {
+			// At top
 			gbc.gridx = i;
 			gbc.gridy = 0;
 			gridPanels[i][0] = new JPanel();
 			gridPanels[i][0].setBackground(Color.DARK_GRAY);
-			label = new JLabel(columnsNumbering[i].toString());
+			label = new JLabel(Test.columnsNumbering[i].toString());
 			label.setForeground(Color.WHITE);
 			gridPanels[i][0].add(label);
 			add(gridPanels[i][0], gbc);
@@ -41,7 +42,7 @@ public class ChessboardPanel extends JPanel {
 			gbc.gridy = 9;
 			gridPanels[i][9] = new JPanel();
 			gridPanels[i][9].setBackground(Color.DARK_GRAY);
-			label = new JLabel(columnsNumbering[i].toString());
+			label = new JLabel(Test.columnsNumbering[i].toString());
 			label.setForeground(Color.WHITE);
 			gridPanels[i][9].add(label);
 			add(gridPanels[i][9], gbc);
@@ -55,7 +56,7 @@ public class ChessboardPanel extends JPanel {
 			gbc.gridy = j;
 			gridPanels[0][j] = new JPanel();
 			gridPanels[0][j].setBackground(Color.DARK_GRAY);
-			label = new JLabel(rowsNumbering[9-j].toString());
+			label = new JLabel(Test.rowsNumbering[9-j].toString());
 			gridPanels[0][j].add(label);
 			label.setForeground(Color.WHITE);
 			add(gridPanels[0][j], gbc);
@@ -64,7 +65,7 @@ public class ChessboardPanel extends JPanel {
 			gbc.gridy = j;
 			gridPanels[9][j] = new JPanel();
 			gridPanels[9][j].setBackground(Color.DARK_GRAY);
-			label = new JLabel(rowsNumbering[9-j].toString());
+			label = new JLabel(Test.rowsNumbering[9-j].toString());
 			gridPanels[9][j].add(label);
 			label.setForeground(Color.WHITE);
 			add(gridPanels[9][j], gbc);
@@ -97,8 +98,8 @@ public class ChessboardPanel extends JPanel {
 	
 	public void createGridCases() {
 		gridCases = new Case[8][8];
-		for (int i = 1; i<9; i++) {
-			for (int j = 1; j<9; j++) {
+		for (int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
 				if ( (i+j)%2 == 0 ) {
 					gridCases[i][j] = new Case("white", i, j);
 				} else {

@@ -32,7 +32,7 @@ public class Window extends JFrame {
 	
 	private void build() {
 		setTitle("Chess");
-		setSize(500, 300);
+		setSize(2000, 1000);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
@@ -68,7 +68,7 @@ public class Window extends JFrame {
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 1;
+		gbc.weightx = 2;
 		pan.add(chessboardPan, gbc);
 		
 		gbc.gridx = 0;
