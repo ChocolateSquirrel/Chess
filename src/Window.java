@@ -13,6 +13,9 @@ import javax.swing.JTable;
 public class Window extends JFrame {
 	private JPanel pan = new JPanel();
 	
+	private ChessboardPanel chessboardPan = new ChessboardPanel();
+	private InformationPanel infoPan = new InformationPanel();
+	
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu gameMenu = new JMenu("Game");
 	private JMenu helpMenu = new JMenu("Help");
@@ -27,12 +30,15 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
+		Case case1 = new Case("black", 7, 2);
+		chessboardPan.getJPanel(case1).setBackground(Color.ORANGE);
+		System.out.println(case1.toString());
 		setVisible(true);
 	}
 	
 	private void build() {
 		setTitle("Chess");
-		setSize(2000, 1000);
+		setSize(1000, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
@@ -41,42 +47,37 @@ public class Window extends JFrame {
 		pan.setBackground(Color.WHITE);
 		
 		GameTablePanel arrayPan = new GameTablePanel(gameTable);
-		ChessboardPanel chessboardPan = new ChessboardPanel();
-	
 	
 		JPanel cemeteryPan = new JPanel();
 		cemeteryPan.setBackground(Color.MAGENTA);
-		
-		JPanel dialogPan = new JPanel();
-		dialogPan.setBackground(Color.YELLOW);
-		
+
 		pan.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		gbc.weightx = 0.5;
-		gbc.weighty = 1;
+		gbc.weightx = 0.1;
+		gbc.weighty = 2;
 		gbc.fill = GridBagConstraints.BOTH;
 		pan.add(arrayPan, gbc);
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		gbc.weightx = 0.1;
+		gbc.weightx = 0.5;
 		pan.add(cemeteryPan, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 2;
+		gbc.weightx = 1;
 		pan.add(chessboardPan, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 3;
 		gbc.weightx = 1;
-		gbc.weighty = 0.1;
-		pan.add(dialogPan, gbc);
+		gbc.weighty = 1;
+		pan.add(infoPan, gbc);
 		
 		setContentPane(pan);
 	}
