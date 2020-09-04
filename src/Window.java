@@ -57,25 +57,25 @@ public class Window extends JFrame {
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		gbc.weightx = 0.1;
-		gbc.weighty = 2;
+		gbc.weightx = 1;
+		gbc.weighty = 4;
 		gbc.fill = GridBagConstraints.BOTH;
 		pan.add(arrayPan, gbc);
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		gbc.weightx = 0.5;
+		gbc.weightx = 1;
 		pan.add(cemeteryPan, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 1;
+		gbc.weightx = 4;
 		pan.add(chessboardPan, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 3;
-		gbc.weightx = 1;
+		gbc.weightx = 6;
 		gbc.weighty = 1;
 		pan.add(infoPan, gbc);
 		

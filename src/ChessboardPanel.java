@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +22,17 @@ public class ChessboardPanel extends JPanel {
 		drawCoordinates();
 		drawChessboard();
 		createGridCases();
+		Dimension dim = new Dimension(getWidth()/10, getHeight()/10);
+		for (JPanel[] panel1 : gridPanels) {
+			for (JPanel panel : panel1) {
+				panel.setPreferredSize(dim);
+			}
+		}
+		Case case1 = new Case("white", 2, 2);
+		JPanel panelCase1 = getJPanel(case1);
+		CasePanel casePanelCase1 = (CasePanel)panelCase1;
+		casePanelCase1.getJLabel().setText("coucou");
+		
 	}
 	
 	/**
@@ -79,7 +91,7 @@ public class ChessboardPanel extends JPanel {
 			for (int j = 1; j<9; j++) {
 				gbc.gridx = i;
 				gbc.gridy = j;
-				gridPanels[i][j] = new JPanel();
+				gridPanels[i][j] = new CasePanel();
 				if ( (i+j)%2 == 0 ) {
 					gridPanels[i][j].setBackground(Color.LIGHT_GRAY);
 				} else {
@@ -111,8 +123,8 @@ public class ChessboardPanel extends JPanel {
 	 * @param case1 
 	 * @return
 	 */
-	public JPanel getJPanel(Case case1) {
-		JPanel panel = gridPanels[case1.getPosX()+1][case1.getPosY()+1];
+	public CasePanel getJPanel(Case case1) {
+		CasePanel panel = (CasePanel) gridPanels[case1.getPosX()+1][case1.getPosY()+1];
 		return panel;
 	}
 	
@@ -137,6 +149,7 @@ public class ChessboardPanel extends JPanel {
 		panel.setLayout(new BorderLayout());
 		return panel;
 	}
+
 	
 }
 	
