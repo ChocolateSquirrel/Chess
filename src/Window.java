@@ -17,7 +17,6 @@ import javax.swing.JTable;
 public class Window extends JFrame {
 	private JPanel pan = new JPanel();
 	
-	private ChessboardPanel chessboardPan = new ChessboardPanel();
 	private InformationPanel infoPan = new InformationPanel();
 	
 	private JMenuBar menuBar = new JMenuBar();
@@ -35,7 +34,7 @@ public class Window extends JFrame {
 		build();
 		initMenu();
 		Case case1 = new Case("black", 7, 2);
-		chessboardPan.getJPanel(case1).setBackground(Color.ORANGE);
+		ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.ORANGE);
 		System.out.println(case1.toString());
 		setVisible(true);
 	}
@@ -101,8 +100,8 @@ public class Window extends JFrame {
 			dimChessboard = new Dimension(widthChessPan, widthChessPan);
 		}
 		chessPan.setBackground(Color.RED);
-		chessboardPan.setPreferredSize(dimChessboard);
-		chessPan.add(chessboardPan, BorderLayout.CENTER);
+		ChessboardPanel.getInstance().setPreferredSize(dimChessboard);
+		chessPan.add(ChessboardPanel.getInstance(), BorderLayout.CENTER);
 		panUp.add(chessPan, gbc);
 		
 		return panUp;

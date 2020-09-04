@@ -12,11 +12,13 @@ import javax.swing.SwingConstants;
 
 public class ChessboardPanel extends JPanel {
 	// Store JPanel composing chessboard area and coordinates area. For example, gridPanels[0][1] stores JPanel which contains the the coordinate "8".
-	private JPanel[][] gridPanels = new JPanel[10][10];
+	private static JPanel[][] gridPanels = new JPanel[10][10];
 	// Store Case composing only chessboard area. For example, gridCases[0][0] stores the white case "a8".
-	private Case[][] gridCases = new Case[8][8];
+	private static Case[][] gridCases = new Case[8][8];
+	
+	private static ChessboardPanel chessboardPanel = new ChessboardPanel();
 
-	public ChessboardPanel() {
+	private ChessboardPanel() {
 		setLayout(new GridBagLayout());
 		setBackground(Color.CYAN);
 		drawCoordinates();
@@ -29,13 +31,17 @@ public class ChessboardPanel extends JPanel {
 			}
 		}
 		
-		Piece tower = new Tower("tower", 2, 4, "black");
-		gridCases[2][4].setIsEmpty(false);
-		Piece pawn = new WhitePawn("pawn", 4, 4, "white");
-		gridCases[4][4].setIsEmpty(false);
-		for (Case case1 : tower.getAllowedCases(gridCases)) {
-			getJPanel(case1).setBackground(Color.GREEN);
-		}	
+//		Piece tower = new Tower("tower", 2, 4, "black");
+//		gridCases[2][4].setIsEmpty(false);
+//		Piece pawn = new WhitePawn("pawn", 4, 4, "white");
+//		gridCases[4][4].setIsEmpty(false);
+//		for (Case case1 : tower.getAllowedCases(gridCases)) {
+//			getJPanel(case1).setBackground(Color.GREEN);
+//		}	
+	}
+	
+	public static ChessboardPanel getInstance() {
+		return chessboardPanel;
 	}
 	
 	/**
