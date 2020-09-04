@@ -37,7 +37,8 @@ public class Window extends JFrame {
 		Piece tower = new Tower("tower", 2, 4, "black");
 		Piece pawn1 = new WhitePawn("pawn", 4, 4, "white");
 		Piece pawn2 = new WhitePawn("pawn", 6, 4, "white");
-		Piece knight = new Knight("cavalier", 3, 5, "white");
+		Piece pawn3 = new WhitePawn("pawn", 5, 3, "white");
+		Piece knight = new Knight("cavalier", 0, 0, "white");
 		for (Case case1 : knight.getAllowedCases(ChessboardPanel.getInstance().getGridCases())) {
 			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.GREEN);
 		}	

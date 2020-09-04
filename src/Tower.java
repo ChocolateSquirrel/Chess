@@ -9,7 +9,7 @@ public class Tower extends Piece {
 		this.posY = posY;
 		this.color = color;	
 		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
-		ChessboardPanel.getInstance().getJPanel(casePiece).getJLabel().setText(color + " " + name);	
+		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/black/tower_black.png");
 		casePiece.setIsEmpty(false);
 	}
 	

@@ -1,3 +1,10 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,9 +15,10 @@ public class CasePanel extends JPanel {
 	private ImageIcon icone;
 	
 	public CasePanel() {
+		setLayout(new BorderLayout());
 		label = new JLabel();
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label);
+		add(label, BorderLayout.CENTER);
 	}
 	
 	public JLabel getJLabel() {
@@ -18,7 +26,12 @@ public class CasePanel extends JPanel {
 	}
 	
 	public void addImageIcon(String path) {
-		icone = new ImageIcon(path);
+		try {
+			icone = new ImageIcon(ImageIO.read(new File(path)));
+		} catch (IOException e) {
+			System.out.println("Wrong path");
+			e.printStackTrace();
+		}
 		label.setIcon(icone);
 	}
 	
