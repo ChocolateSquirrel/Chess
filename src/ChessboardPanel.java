@@ -28,11 +28,14 @@ public class ChessboardPanel extends JPanel {
 				panel.setPreferredSize(dim);
 			}
 		}
-		Case case1 = new Case("white", 2, 2);
-		JPanel panelCase1 = getJPanel(case1);
-		CasePanel casePanelCase1 = (CasePanel)panelCase1;
-		casePanelCase1.addImageIcon("C:\\Users\\Marie\\git\\Chess\\assets\\black\\black_tower.png");
 		
+		Piece tower = new Tower("tower", 2, 4, "black");
+		gridCases[2][4].setIsEmpty(false);
+		Piece pawn = new WhitePawn("pawn", 4, 4, "white");
+		gridCases[4][4].setIsEmpty(false);
+		for (Case case1 : tower.getAllowedCases(gridCases)) {
+			getJPanel(case1).setBackground(Color.GREEN);
+		}	
 	}
 	
 	/**

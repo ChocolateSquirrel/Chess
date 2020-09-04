@@ -15,6 +15,7 @@ public class Case {
 	public Case(int posX, int posY) {
 		this.posY = posY;
 		this.posX = posX;
+		isEmpty = true;
 	}
 	
 	public Case(String color, int posX, int posY) {
@@ -22,6 +23,15 @@ public class Case {
 		this.color = color;
 		
 	}
+	
+	public boolean getIsEmpty() {
+		return isEmpty;
+	}
+	
+	public void setIsEmpty(boolean answer) {
+		this.isEmpty = answer;
+	}
+	
 	
 	public int getPosX() {
 		return posX;
@@ -51,6 +61,9 @@ public class Case {
 		str.append(" ");
 		str.append("couleur : ");
 		str.append(color);
+		str.append(" ");
+		str.append("isEmpty : ");
+		str.append(String.valueOf(isEmpty));
 		return str.toString();
 	}
 
