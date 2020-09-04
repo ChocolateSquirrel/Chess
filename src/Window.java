@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,8 +16,6 @@ import javax.swing.JTable;
 
 public class Window extends JFrame {
 	private JPanel pan = new JPanel();
-	private JPanel panUp = new JPanel();
-	private JPanel panBottom = new JPanel();
 	
 	private ChessboardPanel chessboardPan = new ChessboardPanel();
 	private InformationPanel infoPan = new InformationPanel();
@@ -49,48 +50,69 @@ public class Window extends JFrame {
 		// Positioning different panels with layouts
 		pan.setBackground(Color.WHITE);
 		pan.setLayout(new BorderLayout());
+		pan.add(createPanUp(), BorderLayout.CENTER);
+		pan.add(createPanBottom(), BorderLayout.SOUTH);
+		setContentPane(pan);
+	}
+	
+	private JPanel createPanUp() {
+		JPanel panUp = new JPanel();
+		int widthPanUp = panUp.getWidth();
+		int heightPanUp = panUp.getHeight();
 		
 		GameTablePanel arrayPan = new GameTablePanel(gameTable);
-	
+		JPanel chessPan = new JPanel();
 		JPanel cemeteryPan = new JPanel();
 		cemeteryPan.setBackground(Color.MAGENTA);
-
-		panUp.setLayout(new GridBagLayout());
-		Dimension dimArray = new Dimension(panUp.getWidth()/6, panUp.getHeight());
-		Dimension dimCemetery = new Dimension(panUp.getWidth()/6, panUp.getHeight());
-		Dimension dimChessboard = new Dimension(4*panUp.getWidth()/6, panUp.getHeight());
 		
-
+		Dimension dimArray = new Dimension(3*widthPanUp/12, heightPanUp);
+		Dimension dimCemetery = new Dimension(3*widthPanUp/12, heightPanUp);
+		Dimension dimChess = new Dimension(6*widthPanUp/12, heightPanUp);
+		arrayPan.setPreferredSize(dimArray);
+		cemeteryPan.setPreferredSize(dimCemetery);
+		chessPan.setPreferredSize(dimChess);
+		
+		panUp.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		gbc.weightx = 1;
-		gbc.weighty = 4;
+		gbc.weightx = 3;
+		gbc.weighty = 1;
 		gbc.fill = GridBagConstraints.BOTH;
-		arrayPan.setPreferredSize(dimArray);
 		panUp.add(arrayPan, gbc);
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		gbc.weightx = 1;
-		cemeteryPan.setPreferredSize(dimCemetery);
+		gbc.weightx = 3;
 		panUp.add(cemeteryPan, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		gbc.weightx = 4;
+		gbc.weightx = 6;
+		chessPan.setLayout(new BorderLayout());
+		int widthChessPan = chessPan.getWidth();
+		int heightChessPan = chessPan.getHeight();
+		Dimension dimChessboard = new Dimension(widthChessPan, heightChessPan);
+		if (widthChessPan > heightChessPan) {
+			dimChessboard = new Dimension(heightChessPan, heightChessPan);
+		} else {
+			dimChessboard = new Dimension(widthChessPan, widthChessPan);
+		}
+		chessPan.setBackground(Color.RED);
 		chessboardPan.setPreferredSize(dimChessboard);
-		panUp.add(chessboardPan, gbc);
+		chessPan.add(chessboardPan, BorderLayout.CENTER);
+		panUp.add(chessPan, gbc);
 		
-		panBottom.add(infoPan);
-		
-		pan.add(panUp, BorderLayout.CENTER);
-		pan.add(panBottom,BorderLayout.SOUTH);
-		setContentPane(pan);
+		return panUp;
 	}
 	
+	private JPanel createPanBottom() {
+		JPanel panBottom = new JPanel();
+		panBottom.add(infoPan);
+		return panBottom;
+	}
 	
 	private void initMenu() {
 		newGame.add(white);

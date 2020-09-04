@@ -31,7 +31,7 @@ public class ChessboardPanel extends JPanel {
 		Case case1 = new Case("white", 2, 2);
 		JPanel panelCase1 = getJPanel(case1);
 		CasePanel casePanelCase1 = (CasePanel)panelCase1;
-		casePanelCase1.getJLabel().setText("coucou");
+		casePanelCase1.addImageIcon("C:\\Users\\Marie\\git\\Chess\\assets\\black\\black_tower.png");
 		
 	}
 	
