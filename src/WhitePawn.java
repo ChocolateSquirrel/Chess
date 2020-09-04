@@ -8,6 +8,9 @@ public class WhitePawn extends Piece {
 		this.posX = posX;
 		this.posY = posY;
 		this.color = color;	
+		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
+		ChessboardPanel.getInstance().getJPanel(casePiece).getJLabel().setText(color + " " + name);	
+		casePiece.setIsEmpty(false);
 	}
 	
 	public WhitePawn(String name, int posX, int posY, String color, String path) {

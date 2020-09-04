@@ -15,7 +15,7 @@ public class ChessboardPanel extends JPanel {
 	private static JPanel[][] gridPanels = new JPanel[10][10];
 	// Store Case composing only chessboard area. For example, gridCases[0][0] stores the white case "a8".
 	private static Case[][] gridCases = new Case[8][8];
-	
+	// The unique instance of ChessboardPanel
 	private static ChessboardPanel chessboardPanel = new ChessboardPanel();
 
 	private ChessboardPanel() {
@@ -30,14 +30,6 @@ public class ChessboardPanel extends JPanel {
 				panel.setPreferredSize(dim);
 			}
 		}
-		
-//		Piece tower = new Tower("tower", 2, 4, "black");
-//		gridCases[2][4].setIsEmpty(false);
-//		Piece pawn = new WhitePawn("pawn", 4, 4, "white");
-//		gridCases[4][4].setIsEmpty(false);
-//		for (Case case1 : tower.getAllowedCases(gridCases)) {
-//			getJPanel(case1).setBackground(Color.GREEN);
-//		}	
 	}
 	
 	public static ChessboardPanel getInstance() {
@@ -137,7 +129,11 @@ public class ChessboardPanel extends JPanel {
 		return panel;
 	}
 	
-	public Case[][] getGridCases() {
+	public Case getCaseAt(int posX, int posY) {
+		return gridCases[posX][posY];
+	}
+	
+	public Case[][] getGridCases(){
 		return gridCases;
 	}
 	

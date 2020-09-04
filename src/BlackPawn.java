@@ -7,7 +7,10 @@ public class BlackPawn extends Piece {
 		this.name = name;
 		this.posX = posX;
 		this.posY = posY;
-		this.color = color;	
+		this.color = color;
+		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
+		ChessboardPanel.getInstance().getJPanel(casePiece).getJLabel().setText(color + " " + name);	
+		casePiece.setIsEmpty(false);
 	}
 	
 	public BlackPawn(String name, int posX, int posY, String color, String path) {
