@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +18,7 @@ public class CasePanel extends JPanel {
 	public CasePanel() {
 		setLayout(new BorderLayout());
 		label = new JLabel();
+		label.setPreferredSize(new Dimension(getWidth(), getHeight()));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label, BorderLayout.CENTER);
 	}
@@ -25,13 +27,18 @@ public class CasePanel extends JPanel {
 		return label;
 	}
 	
+
+	
 	public void addImageIcon(String path) {
+		BufferedImage img = null;
 		try {
-			icone = new ImageIcon(ImageIO.read(new File(path)));
+			img = ImageIO.read(new File(path));
 		} catch (IOException e) {
 			System.out.println("Wrong path");
 			e.printStackTrace();
 		}
+		Image dimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		icone = new ImageIcon(dimg);
 		label.setIcon(icone);
 	}
 	

@@ -32,6 +32,10 @@ public class Case {
 		this.isEmpty = answer;
 	}
 	
+	public String getColor() {
+		return color.toUpperCase();
+	}
+	
 	
 	public int getPosX() {
 		return posX;

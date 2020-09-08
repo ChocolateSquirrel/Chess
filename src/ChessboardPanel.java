@@ -24,12 +24,6 @@ public class ChessboardPanel extends JPanel {
 		drawCoordinates();
 		drawChessboard();
 		createGridCases();
-		Dimension dim = new Dimension(getWidth()/10, getHeight()/10);
-		for (JPanel[] panel1 : gridPanels) {
-			for (JPanel panel : panel1) {
-				panel.setPreferredSize(dim);
-			}
-		}
 	}
 	
 	public static ChessboardPanel getInstance() {
@@ -93,6 +87,7 @@ public class ChessboardPanel extends JPanel {
 				gbc.gridx = i;
 				gbc.gridy = j;
 				gridPanels[i][j] = new CasePanel();
+				gridPanels[i][j].setPreferredSize(new Dimension(getWidth()/10, getHeight()/10));
 				if ( (i+j)%2 == 0 ) {
 					gridPanels[i][j].setBackground(Color.LIGHT_GRAY);
 				} else {
@@ -140,7 +135,7 @@ public class ChessboardPanel extends JPanel {
 	
 	
 	
-	private static JLabel createJLabelCoordinates(String text) {
+	private JLabel createJLabelCoordinates(String text) {
 		JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setForeground(Color.WHITE);
 		Font font = new Font("Serif", Font.BOLD, 25);
@@ -148,8 +143,9 @@ public class ChessboardPanel extends JPanel {
 		return label;
 	}
 	
-	private static JPanel createJPanelCoordinates() {
+	private JPanel createJPanelCoordinates() {
 		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(getWidth()/10, getHeight()/10));
 		panel.setBackground(Color.DARK_GRAY);
 		panel.setLayout(new BorderLayout());
 		return panel;

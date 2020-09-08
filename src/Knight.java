@@ -9,7 +9,7 @@ public class Knight extends Piece {
 		this.posY = posY;
 		this.color = color;	
 		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
-		ChessboardPanel.getInstance().getJPanel(casePiece).getJLabel().setText(color + " " + name);	
+		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/" + color + "/knight_" + color +".png");
 		casePiece.setIsEmpty(false);
 	}
 	
@@ -19,7 +19,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<Case> getAllowedCases(Case[][] gridCases) {
+	public List<Case> getPossibleCases(Case[][] gridCases) {
 		List<Case> list = new ArrayList<Case>();
 		// Movement which beginning on the right
 		if (posX + 2 < 8) {

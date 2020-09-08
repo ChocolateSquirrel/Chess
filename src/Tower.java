@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Tower extends Piece {
 	
@@ -9,7 +10,7 @@ public class Tower extends Piece {
 		this.posY = posY;
 		this.color = color;	
 		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
-		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/black/tower_black.png");
+		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/" + color + "/tower_" + color +".png");
 		casePiece.setIsEmpty(false);
 	}
 	
@@ -19,47 +20,49 @@ public class Tower extends Piece {
 	}
 
 	@Override
-	public List<Case> getAllowedCases(Case[][] gridCases) {
-		List<Case> list = new ArrayList<Case>();
-		// Horizontal allowed cases
+	public List<Case> getPossibleCases(Case[][] gridCases) {
+		List<Case> possibleCases = new ArrayList<Case>();
+		// Horizontal possible cases
 		for (int k = 1; k<posX+1; k++) {
 			if (gridCases[posX - k][posY].getIsEmpty()) 
-				list.add(gridCases[posX - k][posY]);
-			// Allowed because of piece in danger (only if it is opposing piece...à faire)
+				possibleCases.add(gridCases[posX - k][posY]);
+			// Possible because of piece in danger (only if it is opposing piece...à faire)
 			else {
-				list.add(gridCases[posX - k][posY]);
+				possibleCases.add(gridCases[posX - k][posY]);
 				break;
 			}
 		}
 		for (int k = posX+1; k<8; k++) {
 			if (gridCases[k][posY].getIsEmpty()) 
-				list.add(gridCases[k][posY]);
-			// Allowed because of piece in danger
+				possibleCases.add(gridCases[k][posY]);
+			// Possible because of piece in danger
 			else {
-				list.add(gridCases[k][posY]);
+				possibleCases.add(gridCases[k][posY]);
 				break;
 			}
 		}
-		// Vertical allowed cases
+		// Vertical possible cases
 		for (int k = 1; k<posY+1; k++) {
 			if (gridCases[posX][posY - k].getIsEmpty()) 
-				list.add(gridCases[posX][posY - k]);
-			// Allowed because of piece in danger
+				possibleCases.add(gridCases[posX][posY - k]);
+			// Possible because of piece in danger
 			else {
-				list.add(gridCases[posX][posY - k]);
+				possibleCases.add(gridCases[posX][posY - k]);
 				break;
 			}
 		}
 		for (int k = posY+1; k<8; k++) {
 			if (gridCases[posX][k].getIsEmpty()) 
-				list.add(gridCases[posX][k]);
-			// Allowed because of piece in danger
+				possibleCases.add(gridCases[posX][k]);
+			// Possible because of piece in danger
 			else {
-				list.add(gridCases[posX][k]);
+				possibleCases.add(gridCases[posX][k]);
 				break;
 			}
 		}
-		return list;
+		return possibleCases;
 	}
+
+	
 
 }

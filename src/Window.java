@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 public class Window extends JFrame {
+	private Game game = new Game();
 	private JPanel pan = new JPanel();
 	
 	private InformationPanel infoPan = new InformationPanel();
@@ -33,22 +34,14 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
-		
-		Piece tower = new Tower("tower", 2, 4, "black");
-		Piece pawn1 = new WhitePawn("pawn", 4, 4, "white");
-		Piece pawn2 = new WhitePawn("pawn", 6, 4, "white");
-		Piece pawn3 = new WhitePawn("pawn", 5, 3, "white");
-		Piece knight = new Knight("cavalier", 0, 0, "white");
-		for (Case case1 : knight.getAllowedCases(ChessboardPanel.getInstance().getGridCases())) {
-			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.GREEN);
-		}	
+		game.giveIndice();
 		
 		setVisible(true);
 	}
 	
 	private void build() {
 		setTitle("Chess");
-		setSize(600, 500);
+		setSize(900, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);

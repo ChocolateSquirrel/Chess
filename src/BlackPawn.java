@@ -9,7 +9,7 @@ public class BlackPawn extends Piece {
 		this.posY = posY;
 		this.color = color;
 		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
-		ChessboardPanel.getInstance().getJPanel(casePiece).getJLabel().setText(color + " " + name);	
+		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/" + color + "/pawn_" + color +".png");
 		casePiece.setIsEmpty(false);
 	}
 	
@@ -19,7 +19,7 @@ public class BlackPawn extends Piece {
 	}
 
 	@Override
-	public List<Case> getAllowedCases(Case[][] gridCases) {
+	public List<Case> getPossibleCases(Case[][] gridCases) {
 		List<Case> list = new ArrayList<Case>();
 		switch (posY) {
 		case 7 :
@@ -47,6 +47,19 @@ public class BlackPawn extends Piece {
 		}
 	
 		return list;
+	}
+
+
+	@Override
+	public List<Case> getAllowedCases(List<Case> possibleCases) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Case> getAttackCases(List<Case> possibleCases, Game game) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
