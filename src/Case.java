@@ -1,6 +1,5 @@
-import javax.swing.JPanel;
-
 public class Case {
+	
 	private String color;
 	private boolean isEmpty;
 	private int posX;

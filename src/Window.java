@@ -18,6 +18,8 @@ import javax.swing.JTable;
 public class Window extends JFrame {
 	private Game game = new Game();
 	private JPanel pan = new JPanel();
+	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
+	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
 	private InformationPanel infoPan = new InformationPanel();
 	
@@ -36,7 +38,7 @@ public class Window extends JFrame {
 		build();
 		initMenu();
 		game.giveIndice();
-		
+		whiteCemetery.displayImage("assets/black/queen_black.png", 0);
 		setVisible(true);
 	}
 	
@@ -63,19 +65,14 @@ public class Window extends JFrame {
 		GameTablePanel arrayPan = new GameTablePanel(gameTable);
 		JPanel chessPan = new JPanel();
 		JPanel cemeteryPan = new JPanel();
-		cemeteryPan.setBackground(Color.MAGENTA);
 		cemeteryPan.setLayout(new BorderLayout());
-		JPanel whiteCemetery = new JPanel();
-		whiteCemetery.setBackground(Color.LIGHT_GRAY);
-		JPanel blackCemetery = new JPanel();
-		blackCemetery.setBackground(Color.GRAY);
 		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blackCemetery, whiteCemetery);
-		split.setDividerLocation(100);
+		split.setDividerLocation(225);
 		cemeteryPan.add(split, BorderLayout.CENTER);
 		
-		Dimension dimArray = new Dimension(3*widthPanUp/12, heightPanUp);
-		Dimension dimCemetery = new Dimension(3*widthPanUp/12, heightPanUp);
-		Dimension dimChess = new Dimension(6*widthPanUp/12, heightPanUp);
+		Dimension dimArray = new Dimension(3*widthPanUp/21, heightPanUp);
+		Dimension dimCemetery = new Dimension(3*widthPanUp/21, heightPanUp);
+		Dimension dimChess = new Dimension(15*widthPanUp/21, heightPanUp);
 		arrayPan.setPreferredSize(dimArray);
 		cemeteryPan.setPreferredSize(dimCemetery);
 		chessPan.setPreferredSize(dimChess);
@@ -108,7 +105,6 @@ public class Window extends JFrame {
 		} else {
 			dimChessboard = new Dimension(widthChessPan, widthChessPan);
 		}
-		chessPan.setBackground(Color.RED);
 		ChessboardPanel.getInstance().setPreferredSize(dimChessboard);
 		chessPan.add(ChessboardPanel.getInstance(), BorderLayout.CENTER);
 		panUp.add(chessPan, gbc);

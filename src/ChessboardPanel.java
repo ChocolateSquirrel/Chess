@@ -20,7 +20,6 @@ public class ChessboardPanel extends JPanel {
 
 	private ChessboardPanel() {
 		setLayout(new GridBagLayout());
-		setBackground(Color.CYAN);
 		drawCoordinates();
 		drawChessboard();
 		createGridCases();
