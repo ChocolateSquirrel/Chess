@@ -42,13 +42,13 @@ public abstract class Piece implements Movable {
 	@Override
 	public List<Case> getAttackCases(List<Case> possibleCases, Game game) {
 		List<Case> listCasesWithPiece = possibleCases.stream().filter(c -> c.getIsEmpty()==false).collect(Collectors.toList());
-		List<Case> listCasesToAttack = new ArrayList<Case>();
-		for (Case case1 : listCasesWithPiece) {
-			Piece piece = game.getPieceAt(case1.getPosX(), case1.getPosY());
-			if (!piece.getColor().equals(color.toUpperCase())) {
-				listCasesToAttack.add(case1);
-			}
-		}
+		List<Case> listCasesToAttack = listCasesWithPiece
+				.stream()
+				.filter(c -> {
+					Piece piece = game.getPieceAt(c.getPosX(), c.getPosY());
+					return !piece.getColor().equals(color.toUpperCase());
+				})
+				.collect(Collectors.toList());
 		return listCasesToAttack;
 	}
 

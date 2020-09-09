@@ -91,7 +91,7 @@ public class ChessboardPanel extends JPanel {
 				if ( (i+j)%2 == 0 ) {
 					gridPanels[i][j].setBackground(Color.LIGHT_GRAY);
 				} else {
-					gridPanels[i][j].setBackground(Color.BLACK);
+					gridPanels[i][j].setBackground(Color.GRAY);
 				}
 				add(gridPanels[i][j], gbc);
 			}
