@@ -24,24 +24,27 @@ public class WhitePawn extends Piece {
 		switch (posY) {
 		case 0 :
 			break;
-		case 1 :
-			if (gridCases[posX][posY - 1].getIsEmpty() == true)
-				list.add(gridCases[posX][posY - 1]);
-			// Allowed because of opposing piece in danger (only if it is opposing piece...à faire)
-			if (posX>0 && gridCases[posX - 1][posY - 1].getIsEmpty() == false)
-				list.add(gridCases[posX - 1][posY - 1]);
-			if (posX<7 && gridCases[posX + 1][posY - 1].getIsEmpty() == false)
-				list.add(gridCases[posX + 1][posY - 1]);
-			break;
-		default :
+		
+		// Starting position, pawn can move forward two cases.
+		case 6 :
 			for (int k = 1; k<3; k++) {
 				if (gridCases[posX][posY - k].getIsEmpty() == true)
 					list.add(gridCases[posX][posY - k]);
 			}
-			// Allowed because of opposing piece in danger (only if it is opposing piece...à faire)
+			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
 			if (gridCases[posX - 1][posY - 1].getIsEmpty() == false && posX>0)
 				list.add(gridCases[posX - 1][posY - 1]);
 			if (gridCases[posX + 1][posY - 1].getIsEmpty() == false && posX<7)
+				list.add(gridCases[posX + 1][posY - 1]);
+			break;
+			
+		default :
+			if (gridCases[posX][posY - 1].getIsEmpty() == true)
+				list.add(gridCases[posX][posY - 1]);
+			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+			if (posX>0 && gridCases[posX - 1][posY - 1].getIsEmpty() == false)
+				list.add(gridCases[posX - 1][posY - 1]);
+			if (posX<7 && gridCases[posX + 1][posY - 1].getIsEmpty() == false)
 				list.add(gridCases[posX + 1][posY - 1]);
 			break;
 		}
@@ -49,16 +52,5 @@ public class WhitePawn extends Piece {
 		return list;
 	}
 
-	@Override
-	public List<Case> getAllowedCases(List<Case> possibleCases) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Case> getAttackCases(List<Case> possibleCases, Game game) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

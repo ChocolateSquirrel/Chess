@@ -9,7 +9,9 @@ public class Game {
 	Piece pawn2 = new WhitePawn("pawn", 6, 4, "white");
 	Piece pawn3 = new BlackPawn("pawn", 2, 1, "black");
 	Piece knight = new Knight("cavalier", 3, 2, "white");
-	Piece bishop = new Bishop("bishop", 5, 3, "white");
+	Piece bishop = new Bishop("bishop", 3, 5, "white");
+	Piece queen = new Queen("queen", 3, 4, "white");
+	Piece king = new King("king", 3, 1, "black");
 	
 	public Game() {
 		listPiece.add(tower);
@@ -18,13 +20,15 @@ public class Game {
 		listPiece.add(pawn3);
 		listPiece.add(knight);
 		listPiece.add(bishop);
+		listPiece.add(queen);
+		listPiece.add(king);
 	}
 	
 	public void giveIndice() {
-		for (Case case1 : tower.getAllowedCases(tower.getPossibleCases(ChessboardPanel.getInstance().getGridCases()))) {
+		for (Case case1 : pawn3.getAllowedCases(pawn3.getPossibleCases(ChessboardPanel.getInstance().getGridCases()))) {
 			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.GREEN);
 		}
-		for (Case case1 : tower.getAttackCases(tower.getPossibleCases(ChessboardPanel.getInstance().getGridCases()), this)) {
+		for (Case case1 : pawn3.getAttackCases(pawn3.getPossibleCases(ChessboardPanel.getInstance().getGridCases()), this)) {
 			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.CYAN);
 		}
 	}
