@@ -32,9 +32,9 @@ public class WhitePawn extends Piece {
 					list.add(gridCases[posX][posY - k]);
 			}
 			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
-			if (gridCases[posX - 1][posY - 1].getIsEmpty() == false && posX>0)
+			if (posX>0 && gridCases[posX - 1][posY - 1].getIsEmpty() == false)
 				list.add(gridCases[posX - 1][posY - 1]);
-			if (gridCases[posX + 1][posY - 1].getIsEmpty() == false && posX<7)
+			if (posX<7 && gridCases[posX + 1][posY - 1].getIsEmpty() == false)
 				list.add(gridCases[posX + 1][posY - 1]);
 			break;
 			

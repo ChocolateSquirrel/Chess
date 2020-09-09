@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
 public class Window extends JFrame {
@@ -63,6 +64,14 @@ public class Window extends JFrame {
 		JPanel chessPan = new JPanel();
 		JPanel cemeteryPan = new JPanel();
 		cemeteryPan.setBackground(Color.MAGENTA);
+		cemeteryPan.setLayout(new BorderLayout());
+		JPanel whiteCemetery = new JPanel();
+		whiteCemetery.setBackground(Color.LIGHT_GRAY);
+		JPanel blackCemetery = new JPanel();
+		blackCemetery.setBackground(Color.GRAY);
+		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blackCemetery, whiteCemetery);
+		split.setDividerLocation(100);
+		cemeteryPan.add(split, BorderLayout.CENTER);
 		
 		Dimension dimArray = new Dimension(3*widthPanUp/12, heightPanUp);
 		Dimension dimCemetery = new Dimension(3*widthPanUp/12, heightPanUp);
