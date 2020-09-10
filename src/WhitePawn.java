@@ -10,7 +10,7 @@ public class WhitePawn extends Piece {
 		this.posY = posY;
 		this.color = color;	
 		Case casePiece = ChessboardPanel.getInstance().getCaseAt(posX, posY);
-		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/white/pawn_white.png");
+		ChessboardPanel.getInstance().getJPanel(casePiece).addImageIcon("assets/" + color + "/pawn_" + color +".png");
 		casePiece.setIsEmpty(false);
 	}
 	
@@ -23,6 +23,7 @@ public class WhitePawn extends Piece {
 	public List<Case> getPossibleCases(Case[][] gridCases) {
 		List<Case> list = new ArrayList<Case>();
 		switch (posY) {
+		// Finishing position.
 		case 0 :
 			break;
 		
@@ -38,7 +39,7 @@ public class WhitePawn extends Piece {
 			if (posX<7 && gridCases[posX + 1][posY - 1].getIsEmpty() == false)
 				list.add(gridCases[posX + 1][posY - 1]);
 			break;
-			
+		
 		default :
 			if (gridCases[posX][posY - 1].getIsEmpty() == true)
 				list.add(gridCases[posX][posY - 1]);

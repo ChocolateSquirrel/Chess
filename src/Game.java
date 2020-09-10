@@ -44,7 +44,7 @@ public class Game {
 	private Piece pawnG2 = new WhitePawn("pawn", 6, 6, "white");
 	private Piece pawnH2 = new WhitePawn("pawn", 7, 6, "white");
 	
-	Piece bishop = new Bishop("bishop", 4, 5, "black");
+	Piece bishop = new BlackPawn("bishop", 4, 2, "black");
 	
 	
 	public Game() {
