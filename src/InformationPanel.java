@@ -1,6 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -8,51 +11,80 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class InformationPanel extends JPanel {
+	private JPanel timePan = new JPanel();
+	private JPanel whiteTimePan = new JPanel();
+	private JPanel blackTimePan = new JPanel();
+	private JLabel timeLabel = new JLabel("00:00", SwingConstants.CENTER);
+	private JLabel whiteTimeLabel = new JLabel("00:00 white", SwingConstants.CENTER);
+	private JLabel blackTimeLabel = new JLabel("00:00 black", SwingConstants.CENTER);
 	
 	
 	public InformationPanel() {
-		setLayout(new GridLayout(1,3));
-		JPanel timePan = createTimePan();
-		JPanel whiteTimePan = createWhiteTimePan();
-		JPanel blackTimePan = createBlackTimePan();
-		add(timePan);
-		add(whiteTimePan);
-		add(blackTimePan);
+		timePan.setLayout(new BorderLayout());
+		whiteTimePan.setLayout(new BorderLayout());
+		blackTimePan.setLayout(new BorderLayout());
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0; 
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.weightx = 100;
+		gbc.weighty = 10;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.ipadx = 100;
+		gbc.ipady = 10;
+		JLabel time = new JLabel("Total time : ", SwingConstants.CENTER);
+		add(time, gbc);
+		
+		gbc.gridx = 1; 
+		gbc.gridy = 0;
+		JLabel timeW = new JLabel("White time : ", SwingConstants.CENTER);
+		add(timeW, gbc);
+		
+		gbc.gridx = 2; 
+		gbc.gridy = 0;
+		JLabel timeB = new JLabel("Black time : ", SwingConstants.CENTER);
+		add(timeB, gbc);
+		
+		gbc.gridx = 0; 
+		gbc.gridy = 1;
+		timePan.add(timeLabel, BorderLayout.CENTER);
+		add(timePan, gbc);
+		
+		gbc.gridx = 1; 
+		gbc.gridy = 1;
+		whiteTimePan.add(whiteTimeLabel, BorderLayout.CENTER);
+		add(whiteTimePan, gbc);
+		
+		gbc.gridx = 2; 
+		gbc.gridy = 1;
+		blackTimePan.add(blackTimeLabel, BorderLayout.CENTER);
+		add(blackTimePan, gbc);
+		
 	}
 	
-	private JPanel createTimePan() {
-		JPanel timePan = new JPanel();
-		timePan.setBackground(Color.PINK);
-		timePan.setLayout(new GridLayout(2,1));
-		JLabel label = new JLabel("Total time : ", SwingConstants.CENTER);
-		label.setForeground(Color.WHITE);
-		Font font = new Font("Serif", Font.BOLD, 20);
-		label.setFont(font);
-		timePan.add(label, BorderLayout.EAST);
-		return timePan;
+	public void changeTime(String newText) {
+		timeLabel.setText(newText);
 	}
 	
-	private JPanel createWhiteTimePan() {
-		JPanel whiteTimePan = new JPanel();
-		whiteTimePan.setBackground(Color.RED);
-		JLabel label = new JLabel("White time : ");
-		label.setForeground(Color.WHITE);
-		Font font = new Font("Serif", Font.BOLD, 20);
-		label.setFont(font);
-		whiteTimePan.add(label);
-		return whiteTimePan;
+	public void changeWhiteTime(String newText) {
+		whiteTimeLabel.setText(newText);
 	}
 	
-	private JPanel createBlackTimePan() {
-		JPanel blackTimePan = new JPanel();
-		blackTimePan.setBackground(Color.YELLOW);
-		JLabel label = new JLabel("Black time : ");
-		label.setForeground(Color.WHITE);
-		Font font = new Font("Serif", Font.BOLD, 20);
-		label.setFont(font);
-		blackTimePan.add(label);
-		return blackTimePan;
+	public void changeBlackTime(String newText) {
+		blackTimeLabel.setText(newText);
 	}
 	
-
+	public void changeColorTimePanel(Color color) {
+		timePan.setBackground(color);
+	}
+	
+	public void changeColorWhiteTimePanel(Color color) {
+		whiteTimePan.setBackground(color);
+	}
+	
+	public void changeColorBlackTimePanel(Color color) {
+		blackTimePan.setBackground(color);
+	}
 }

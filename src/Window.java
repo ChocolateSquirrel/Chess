@@ -5,12 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -21,6 +24,7 @@ public class Window extends JFrame {
 	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
 	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
+	private JTable gameTable = new JTable(new ModelGameTable());
 	private InformationPanel infoPan = new InformationPanel();
 	
 	private JMenuBar menuBar = new JMenuBar();
@@ -30,8 +34,7 @@ public class Window extends JFrame {
 	private JMenuItem quit = new JMenuItem("Quit");
 	private JMenuItem white = new JMenuItem(Player.WHITE.getName());
 	private JMenuItem black = new JMenuItem(Player.BLACK.getName());
-
-	private JTable gameTable = new JTable(new ModelGameTable());
+	private JMenuItem help = new JMenuItem("help");
 
 	
 	public Window() {
@@ -119,13 +122,54 @@ public class Window extends JFrame {
 	}
 	
 	private void initMenu() {
+		white.addActionListener(new StartGameWhiteListener());
+		black.addActionListener(new StartGameBlackListener());
 		newGame.add(white);
 		newGame.add(black);
+		
+		quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		gameMenu.add(newGame);
 		gameMenu.add(quit);
+		
+		help.addActionListener(new HelpListener());
+		helpMenu.add(help);
+		
 		menuBar.add(gameMenu);
 		menuBar.add(helpMenu);
 		setJMenuBar(menuBar);
 	}
+	
+	public class StartGameWhiteListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			infoPan.changeColorWhiteTimePanel(Color.CYAN);
+			infoPan.changeWhiteTime("coucou");
+			System.out.println("Tu joues avec les blancs.");
+		}
+	}
+	
+	public class StartGameBlackListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			infoPan.changeColorBlackTimePanel(Color.CYAN);
+			System.out.println("Tu joues avec les noirs.");
+		}
+	}
+	
+	public class HelpListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane jop = new JOptionPane();
+			jop.showMessageDialog(null, "You asked for help ? ", "Help", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Coucou");
+		}
+	}
+
+	
 
 }

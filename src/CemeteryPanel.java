@@ -8,6 +8,7 @@ public class CemeteryPanel extends JPanel {
 	
 	public CemeteryPanel(String color) {
 		setLayout(new GridLayout(4, 4));
+		
 		switch (color) {
 		case "white":
 			for (int i = 0; i<16; i++) {
