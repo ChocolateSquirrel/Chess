@@ -21,8 +21,9 @@ public class ChessboardView extends JPanel {
 	
 	public ChessboardView() {
 		setLayout(new GridBagLayout());
-		drawCoordinates();
-		drawChessboard();
+		createCoordinates();
+		createChessboard();
+		paintChessboard();
 	}
 	
 	public JPanel[][] getGridPanels(){
@@ -38,12 +39,11 @@ public class ChessboardView extends JPanel {
 		SquarePanel panel = (SquarePanel) gridPanels[square.getPosX()+1][square.getPosY()+1];
 		return panel;
 	}
-
 	
 	/**
 	 * Create and place JPanels with JLabels composing coordinates area.
 	 */
-	private void drawCoordinates() {
+	private void createCoordinates() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
@@ -86,7 +86,7 @@ public class ChessboardView extends JPanel {
 	/**
 	 * Create and place JPanels composing only chessboard area.
 	 */
-	private void drawChessboard() {
+	private void createChessboard() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
@@ -98,14 +98,24 @@ public class ChessboardView extends JPanel {
 				gbc.gridy = j;
 				gridPanels[i][j] = new SquarePanel();
 				gridPanels[i][j].setPreferredSize(new Dimension(getWidth()/10, getHeight()/10));
+				add(gridPanels[i][j], gbc);
+			}
+		}
+	}
+	
+	/**
+	 * Paint JPanel composing the chessboard in two colors. 
+	 */
+	public void paintChessboard() {
+		for (int i = 1; i<9; i++) {
+			for (int j = 1; j<9; j++) {
 				if ( (i+j)%2 == 0 ) {
 					gridPanels[i][j].setBackground(Color.LIGHT_GRAY);
 				} else {
 					gridPanels[i][j].setBackground(Color.GRAY);
 				}
-				add(gridPanels[i][j], gbc);
 			}
-		}	
+		}	 
 	}
 	
 	private JLabel createJLabelCoordinates(String text) {

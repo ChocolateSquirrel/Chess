@@ -44,8 +44,9 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
-		game.giveAClue();
+		game.giveAClue(game.bishop);
 		whiteCemetery.displayImage("assets/black/queen_black.png", 0);
+		//game.removeClue();
 		setVisible(true);
 	}
 	

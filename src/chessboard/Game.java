@@ -1,5 +1,6 @@
 package chessboard;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class Game {
 	private Piece pawnG2 = new WhitePawn("pawn", 6, 6, "white");
 	private Piece pawnH2 = new WhitePawn("pawn", 7, 6, "white");
 	
-	Piece bishop = new Bishop("bishop", 4, 4, "black");
+	public Piece bishop = new Bishop("bishop", 4, 3, "black");
 	
 	
 	public Game() {
@@ -101,13 +102,29 @@ public class Game {
 		return chessboard;
 	}
 	
-	public void giveAClue() {
-		for (Square square : bishop.getAllowedSquares(bishop.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()))) {
+	/**
+	 * Display with different colors the squares where the piece can move (green for free squares and cyan for squares in which the piece can eat an other piece)
+	 * @param piece 
+	 */
+	public void giveAClue(Piece piece) {
+		for (Square square : piece.getAllowedSquares(piece.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()))) {
 			chessboard.getChessboardView().getJPanel(square).setBackground(Color.GREEN);
 		}
-		for (Square square : bishop.getAttackSquares(bishop.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()), this)) {
+		for (Square square : piece.getAttackSquares(piece.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()), this)) {
 			chessboard.getChessboardView().getJPanel(square).setBackground(Color.CYAN);
 		}
+	}
+	
+	public void removeClue() {
+		for (int i = 1; i<9; i++) {
+			for (int j = 1; j<9; j++) {
+				if ( (i+j)%2 == 0 ) {
+					chessboard.getChessboardView().getGridPanels()[i][j].setBackground(Color.LIGHT_GRAY);
+				} else {
+					chessboard.getChessboardView().getGridPanels()[i][j].setBackground(Color.GRAY);
+				}
+			}
+		}	 
 	}
 	
 	public Piece getPieceAt(int posX, int posY) {
