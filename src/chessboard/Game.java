@@ -14,15 +14,15 @@ import pieces.WhitePawn;
 
 public class Game {
 	
-	private List<Piece> listPieceOnChessboard = new ArrayList<Piece>();
 	private List<Piece> listPieceInBlackCemetery = new ArrayList<Piece>();
 	private List<Piece> listPieceInWhiteCemetery = new ArrayList<Piece>();
+	private ChessboardController chessboard;
 	
 	//Black
 	private Piece towerA8 = new Tower("tower", 0, 0, "black");
 	private Piece towerH8 = new Tower("tower", 7, 0, "black");
-	private Piece knightB8 = new Knight("cavalier", 1, 0, "black");
-	private Piece knightG8 = new Knight("cavalier", 6, 0, "black");
+	private Piece knightB8 = new Knight("knight", 1, 0, "black");
+	private Piece knightG8 = new Knight("knight", 6, 0, "black");
 	private Piece bishopC8 = new Bishop("bishop", 2, 0, "black");
 	private Piece bishopF8 = new Bishop("bishop", 5, 0, "black");
 	private Piece queenBlack = new Queen("queen", 3, 0, "black");
@@ -39,8 +39,8 @@ public class Game {
 	//White
 	private Piece towerA1 = new Tower("tower", 0, 7, "white");
 	private Piece towerH1 = new Tower("tower", 7, 7, "white");
-	private Piece knightB1 = new Knight("cavalier", 1, 7, "white");
-	private Piece knightG1 = new Knight("cavalier", 6, 7, "white");
+	private Piece knightB1 = new Knight("knight", 1, 7, "white");
+	private Piece knightG1 = new Knight("knight", 6, 7, "white");
 	private Piece bishopC1 = new Bishop("bishop", 2, 7, "white");
 	private Piece bishopF1 = new Bishop("bishop", 5, 7, "white");
 	private Piece queenWhite = new Queen("queen", 3, 7, "white");
@@ -58,59 +58,63 @@ public class Game {
 	
 	
 	public Game() {
-		listPieceOnChessboard.add(towerA8);
-		listPieceOnChessboard.add(towerH8);
-		listPieceOnChessboard.add(knightB8);
-		listPieceOnChessboard.add(knightG8);
-		listPieceOnChessboard.add(bishopC8);
-		listPieceOnChessboard.add(bishopF8);
-		listPieceOnChessboard.add(queenBlack);
-		listPieceOnChessboard.add(kingBlack);
-		listPieceOnChessboard.add(pawnA7);
-		listPieceOnChessboard.add(pawnB7);
-		listPieceOnChessboard.add(pawnC7);
-		listPieceOnChessboard.add(pawnD7);
-		listPieceOnChessboard.add(pawnE7);
-		listPieceOnChessboard.add(pawnF7);
-		listPieceOnChessboard.add(pawnG7);
-		listPieceOnChessboard.add(pawnH7);
-		listPieceOnChessboard.add(towerA1);
-		listPieceOnChessboard.add(towerH1);
-		listPieceOnChessboard.add(knightB1);
-		listPieceOnChessboard.add(knightG1);
-		listPieceOnChessboard.add(bishopC1);
-		listPieceOnChessboard.add(bishopF1);
-		listPieceOnChessboard.add(queenWhite);
-		listPieceOnChessboard.add(kingWhite);
-		listPieceOnChessboard.add(pawnA2);
-		listPieceOnChessboard.add(pawnB2);
-		listPieceOnChessboard.add(pawnC2);
-		listPieceOnChessboard.add(pawnD2);
-		listPieceOnChessboard.add(pawnE2);
-		listPieceOnChessboard.add(pawnF2);
-		listPieceOnChessboard.add(pawnG2);
-		listPieceOnChessboard.add(pawnH2);
+		chessboard = new ChessboardController(new ChessboardView(), new ChessboardModel());
 		
-		listPieceOnChessboard.add(bishop);
+		chessboard.add(towerA8);
+		chessboard.add(towerA8);
+		chessboard.add(towerH8);
+		chessboard.add(knightB8);
+		chessboard.add(knightG8);
+		chessboard.add(bishopC8);
+		chessboard.add(bishopF8);
+		chessboard.add(queenBlack);
+		chessboard.add(kingBlack);
+		chessboard.add(pawnA7);
+		chessboard.add(pawnB7);
+		chessboard.add(pawnC7);
+		chessboard.add(pawnD7);
+		chessboard.add(pawnE7);
+		chessboard.add(pawnF7);
+		chessboard.add(pawnG7);
+		chessboard.add(pawnH7);
+		chessboard.add(towerA1);
+		chessboard.add(towerH1);
+		chessboard.add(knightB1);
+		chessboard.add(knightG1);
+		chessboard.add(bishopC1);
+		chessboard.add(bishopF1);
+		chessboard.add(queenWhite);
+		chessboard.add(kingWhite);
+		chessboard.add(pawnA2);
+		chessboard.add(pawnB2);
+		chessboard.add(pawnC2);
+		chessboard.add(pawnD2);
+		chessboard.add(pawnE2);
+		chessboard.add(pawnF2);
+		chessboard.add(pawnG2);
+		chessboard.add(pawnH2);
 		
+		chessboard.add(bishop);
 	}
 	
+	public ChessboardController getChessboard() {
+		return chessboard;
+	}
 	
-	
-	public void giveIndice() {
-		for (Square case1 : bishop.getAllowedCases(bishop.getPossibleCases(ChessboardPanel.getInstance().getGridCases()))) {
-			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.GREEN);
+	public void giveAClue() {
+		for (Square square : bishop.getAllowedSquares(bishop.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()))) {
+			chessboard.getChessboardView().getJPanel(square).setBackground(Color.GREEN);
 		}
-		for (Square case1 : bishop.getAttackCases(bishop.getPossibleCases(ChessboardPanel.getInstance().getGridCases()), this)) {
-			ChessboardPanel.getInstance().getJPanel(case1).setBackground(Color.CYAN);
+		for (Square square : bishop.getAttackSquares(bishop.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()), this)) {
+			chessboard.getChessboardView().getJPanel(square).setBackground(Color.CYAN);
 		}
 	}
 	
 	public Piece getPieceAt(int posX, int posY) {
-		Square case1 = ChessboardPanel.getInstance().getGridCases()[posX][posY];
+		Square square = chessboard.getChessboardModel().getGridSquares()[posX][posY];
 		Piece piece = null;
-		if (!case1.getIsEmpty()) {
-			for (Piece piece1 : listPieceOnChessboard) {
+		if (!square.getIsEmpty()) {
+			for (Piece piece1 : chessboard.getPiecesOnChessboard()) {
 				if(piece1.getPosX()==posX && piece1.getPosY()==posY)
 					piece = piece1;
 			}

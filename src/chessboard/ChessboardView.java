@@ -1,4 +1,5 @@
 package chessboard;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,31 +7,38 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import window.Test;
 
-public class ChessboardPanel extends JPanel {
-	// Store JPanel composing chessboard area and coordinates area. For example, gridPanels[0][1] stores JPanel which contains the the coordinate "8".
+public class ChessboardView extends JPanel {
+	/**
+	 * 	Store JPanel composing chessboard area and coordinates area. For example, gridPanels[0][1] stores JPanel which contains the the coordinate "8".
+	 */
 	private static JPanel[][] gridPanels = new JPanel[10][10];
-	// Store Case composing only chessboard area. For example, gridCases[0][0] stores the white case "a8".
-	private static Square[][] gridCases = new Square[8][8];
-	// The unique instance of ChessboardPanel
-	private static ChessboardPanel chessboardPanel = new ChessboardPanel();
-
-	private ChessboardPanel() {
+	
+	public ChessboardView() {
 		setLayout(new GridBagLayout());
 		drawCoordinates();
 		drawChessboard();
-		createGridCases();
 	}
 	
-	public static ChessboardPanel getInstance() {
-		return chessboardPanel;
+	public JPanel[][] getGridPanels(){
+		return gridPanels;
 	}
+	
+	/**
+	 * Retrieve the JPanel corresponding to the Square.
+	 * @param square 
+	 * @return
+	 */
+	public SquarePanel getJPanel(Square square) {
+		SquarePanel panel = (SquarePanel) gridPanels[square.getPosX()+1][square.getPosY()+1];
+		return panel;
+	}
+
 	
 	/**
 	 * Create and place JPanels with JLabels composing coordinates area.
@@ -100,43 +108,6 @@ public class ChessboardPanel extends JPanel {
 		}	
 	}
 	
-	/**
-	 * Store the color and the position of each cases in a Case object.
-	 * Warning, the position (i, j) doesn't match with the coordinates of the real chessboard. For example, gridCases[0][0] is for the the white case "a8".
-	 */
-	private void createGridCases() {
-		for (int i = 0; i<8; i++) {
-			for (int j = 0; j<8; j++) {
-				if ( (i+j)%2 == 0 ) {
-					gridCases[i][j] = new Square("white", i, j);
-				} else {
-					gridCases[i][j] = new Square("black", i, j);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Retrieve the JPanel corresponding to the Case.
-	 * @param case1 
-	 * @return
-	 */
-	public SquarePanel getJPanel(Square case1) {
-		SquarePanel panel = (SquarePanel) gridPanels[case1.getPosX()+1][case1.getPosY()+1];
-		return panel;
-	}
-	
-	public Square getCaseAt(int posX, int posY) {
-		return gridCases[posX][posY];
-	}
-	
-	public Square[][] getGridCases(){
-		return gridCases;
-	}
-	
-	
-	
-	
 	private JLabel createJLabelCoordinates(String text) {
 		JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setForeground(Color.WHITE);
@@ -153,7 +124,4 @@ public class ChessboardPanel extends JPanel {
 		return panel;
 	}
 
-	
 }
-	
-	

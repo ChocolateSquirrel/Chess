@@ -11,8 +11,17 @@ public abstract class Piece implements Movable {
 	protected int posX;
 	protected int posY;
 	protected String color;
-	protected String pathToImage;
 	
+	public Piece(String name, int posX, int posY, String color) {
+		this.name = name;
+		this.posX = posX;
+		this.posY = posY;
+		this.color = color;	
+	}
+	
+	public String getName() {
+		return name.toLowerCase();
+	}
 	
 	public int getPosX() {
 		return posX;
@@ -31,7 +40,7 @@ public abstract class Piece implements Movable {
 	}
 	
 	public String getColor() {
-		return color.toUpperCase();
+		return color.toLowerCase();
 	}
 	
 	public  String toString() {
@@ -44,7 +53,7 @@ public abstract class Piece implements Movable {
 	}
 	
 	@Override
-	public List<Square> getAttackCases(List<Square> possibleCases, Game game) {
+	public List<Square> getAttackSquares(List<Square> possibleCases, Game game) {
 		List<Square> listCasesWithPiece = possibleCases.stream().filter(c -> c.getIsEmpty()==false).collect(Collectors.toList());
 		List<Square> listCasesToAttack = listCasesWithPiece
 				.stream()
@@ -57,7 +66,7 @@ public abstract class Piece implements Movable {
 	}
 
 	@Override
-	public List<Square> getAllowedCases(List<Square> possibleCases) {
+	public List<Square> getAllowedSquares(List<Square> possibleCases) {
 		List<Square> list = possibleCases.stream().filter(c -> c.getIsEmpty()).collect(Collectors.toList());
 		return list;
 	}

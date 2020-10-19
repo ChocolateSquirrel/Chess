@@ -9,27 +9,28 @@ import chessboard.Square;
 public interface Movable {
 	
 	/**
-	 * Store cases where the piece can move even if there is a piece (black or white) on this case.
-	 * @param gridCases
+	 * Store squares where the piece can move even if there is a piece (black or white) on this square.
+	 * @param gridSquares
 	 * @return
 	 */
-	public List<Square> getPossibleCases(Square[][] gridCases);
+	public List<Square> getPossibleSquares(Square[][] gridSquares);
+	
 	
 	/**
-	 * Store cases where the piece can both move and eat opponent piece. 
-	 * @param possibleCases : list of cases where the piece can go even if there is an other piece.
+	 * Store squares where the piece can both move and eat opponent piece. 
+	 * @param possibleSquares : list of squares where the piece can go even if there is an other piece.
 	 * @param game
 	 * @return
 	 */
-	public List<Square> getAttackCases(List<Square> possibleCases, Game game);
+	public List<Square> getAttackSquares(List<Square> possibleSquares, Game game);
 	
 	
 	/**
-	 * Store free cases where the piece can move.
-	 * @param possibleCases
+	 * Store free squares where the piece can move.
+	 * @param possibleSquares
 	 * @return
 	 */
-	public List<Square> getAllowedCases(List<Square> possibleCases);
+	public List<Square> getAllowedSquares(List<Square> possibleSquares);
 	
 	
 	/**

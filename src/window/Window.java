@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-import chessboard.ChessboardPanel;
 import chessboard.Game;
+import pieces.Queen;
 
 public class Window extends JFrame {
 	private Game game = new Game();
@@ -44,7 +44,7 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
-		game.giveIndice();
+		game.giveAClue();
 		whiteCemetery.displayImage("assets/black/queen_black.png", 0);
 		setVisible(true);
 	}
@@ -72,6 +72,7 @@ public class Window extends JFrame {
 		GameTablePanel arrayPan = new GameTablePanel(gameTable);
 		JPanel chessPan = new JPanel();
 		JPanel cemeteryPan = new JPanel();
+		
 		cemeteryPan.setLayout(new BorderLayout());
 		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blackCemetery, whiteCemetery);
 		split.setDividerLocation(225);
@@ -112,8 +113,8 @@ public class Window extends JFrame {
 		} else {
 			dimChessboard = new Dimension(widthChessPan, widthChessPan);
 		}
-		ChessboardPanel.getInstance().setPreferredSize(dimChessboard);
-		chessPan.add(ChessboardPanel.getInstance(), BorderLayout.CENTER);
+		game.getChessboard().getChessboardView().setPreferredSize(dimChessboard);
+		chessPan.add(game.getChessboard().getChessboardView(), BorderLayout.CENTER);
 		panUp.add(chessPan, gbc);
 		
 		return panUp;
