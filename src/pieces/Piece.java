@@ -3,8 +3,8 @@ package pieces;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import chessboard.Game;
 import chessboard.Square;
+import game.Game;
 
 public abstract class Piece implements Movable {
 	protected String name;

@@ -3,8 +3,8 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chessboard.Game;
 import chessboard.Square;
+import game.Game;
 
 public interface Movable {
 	

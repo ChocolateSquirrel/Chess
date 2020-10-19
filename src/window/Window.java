@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-import chessboard.Game;
+import game.Game;
 import pieces.Queen;
 
 public class Window extends JFrame {
@@ -44,8 +44,8 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
-		game.giveAClue(game.bishop);
-		whiteCemetery.displayImage("assets/black/queen_black.png", 0);
+		//game.giveAClue(game.bishop);
+		//whiteCemetery.displayImage("assets/black/queen_black.png", 0);
 		//game.removeClue();
 		setVisible(true);
 	}
@@ -153,6 +153,7 @@ public class Window extends JFrame {
 	public class StartGameWhiteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			game.initGame();
 			infoPan.changeColorWhiteTimePanel(Color.CYAN);
 			infoPan.changeWhiteTime("coucou");
 			System.out.println("Tu joues avec les blancs.");
@@ -162,6 +163,7 @@ public class Window extends JFrame {
 	public class StartGameBlackListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			game.initGame();
 			infoPan.changeColorBlackTimePanel(Color.CYAN);
 			System.out.println("Tu joues avec les noirs.");
 		}

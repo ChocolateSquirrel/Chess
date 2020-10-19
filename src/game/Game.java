@@ -1,9 +1,13 @@
-package chessboard;
+package game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import chessboard.ChessboardController;
+import chessboard.ChessboardModel;
+import chessboard.ChessboardView;
+import chessboard.Square;
 import pieces.Bishop;
 import pieces.BlackPawn;
 import pieces.King;
@@ -60,7 +64,9 @@ public class Game {
 	
 	public Game() {
 		chessboard = new ChessboardController(new ChessboardView(), new ChessboardModel());
-		
+	}
+	
+	public void initGame() {
 		chessboard.add(towerA8);
 		chessboard.add(towerA8);
 		chessboard.add(towerH8);
@@ -94,8 +100,6 @@ public class Game {
 		chessboard.add(pawnF2);
 		chessboard.add(pawnG2);
 		chessboard.add(pawnH2);
-		
-		chessboard.add(bishop);
 	}
 	
 	public ChessboardController getChessboard() {
@@ -116,15 +120,7 @@ public class Game {
 	}
 	
 	public void removeClue() {
-		for (int i = 1; i<9; i++) {
-			for (int j = 1; j<9; j++) {
-				if ( (i+j)%2 == 0 ) {
-					chessboard.getChessboardView().getGridPanels()[i][j].setBackground(Color.LIGHT_GRAY);
-				} else {
-					chessboard.getChessboardView().getGridPanels()[i][j].setBackground(Color.GRAY);
-				}
-			}
-		}	 
+		 chessboard.getChessboardView().paintChessboard();
 	}
 	
 	public Piece getPieceAt(int posX, int posY) {
@@ -141,4 +137,7 @@ public class Game {
 		}
 		return piece;
 	}
+	
+	
+	
 }
