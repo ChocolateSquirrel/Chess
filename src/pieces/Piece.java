@@ -59,7 +59,7 @@ public abstract class Piece implements Movable {
 				.stream()
 				.filter(c -> {
 					Piece piece = game.getPieceAt(c.getPosX(), c.getPosY());
-					return !piece.getColor().equals(color.toUpperCase());
+					return !piece.getColor().equals(color.toLowerCase());
 				})
 				.collect(Collectors.toList());
 		return listCasesToAttack;
