@@ -46,7 +46,7 @@ public interface Movable {
 		for (int k = 1; k<posX+1; k++) {
 			if (gridSquares[posX - k][posY].getIsEmpty()) 
 				possibleSquares.add(gridSquares[posX - k][posY]);
-			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+			// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 			else {
 				possibleSquares.add(gridSquares[posX - k][posY]);
 				break;
@@ -55,7 +55,7 @@ public interface Movable {
 		for (int k = posX+1; k<8; k++) {
 			if (gridSquares[k][posY].getIsEmpty()) 
 				possibleSquares.add(gridSquares[k][posY]);
-			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+			// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 			else {
 				possibleSquares.add(gridSquares[k][posY]);
 				break;
@@ -65,7 +65,7 @@ public interface Movable {
 		for (int k = 1; k<posY+1; k++) {
 			if (gridSquares[posX][posY - k].getIsEmpty()) 
 				possibleSquares.add(gridSquares[posX][posY - k]);
-			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+			// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 			else {
 				possibleSquares.add(gridSquares[posX][posY - k]);
 				break;
@@ -74,7 +74,7 @@ public interface Movable {
 		for (int k = posY+1; k<8; k++) {
 			if (gridSquares[posX][k].getIsEmpty()) 
 				possibleSquares.add(gridSquares[posX][k]);
-			// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+			// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 			else {
 				possibleSquares.add(gridSquares[posX][k]);
 				break;
@@ -101,7 +101,7 @@ public interface Movable {
 			for (int k = 1; k<posMin+1; k++) {
 				if (gridSquares[posX - k][posY - k].getIsEmpty())
 					possibleSquares.add(gridSquares[posX - k][posY - k]);
-				// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+				// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 				else {
 					possibleSquares.add(gridSquares[posX - k][posY - k]);
 					break;
@@ -112,7 +112,7 @@ public interface Movable {
 			for (int k = 1; k<8-posMax; k++) {
 				if (gridSquares[posX + k][posY + k].getIsEmpty())
 					possibleSquares.add(gridSquares[posX + k][posY + k]);
-				// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+				// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 				else {
 					possibleSquares.add(gridSquares[posX + k][posY + k]);
 					break;
@@ -127,7 +127,7 @@ public interface Movable {
 			for (int k = 1; k<posMin; k++) {
 				if (gridSquares[posX - k][posY + k].getIsEmpty())
 					possibleSquares.add(gridSquares[posX - k][posY + k]);
-				// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+				// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 				else {
 					possibleSquares.add(gridSquares[posX - k][posY + k]);
 					break;
@@ -138,7 +138,7 @@ public interface Movable {
 			for (int k = 1; k<posMax; k++) {
 				if (gridSquares[posX + k][posY - k].getIsEmpty())
 					possibleSquares.add(gridSquares[posX + k][posY - k]);
-				// Possible because there is piece in danger (only if it is opposing piece...it will be filtered by the method getAttackCases())
+				// Possible because there is piece in danger (only if it is opponent piece...it will be filtered by the method getAttackCases())
 				else {
 					possibleSquares.add(gridSquares[posX + k][posY - k]);
 					break;
