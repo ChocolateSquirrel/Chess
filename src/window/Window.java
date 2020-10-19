@@ -21,6 +21,8 @@ import javax.swing.JTable;
 
 import game.Game;
 import pieces.Queen;
+import table.GameTableView;
+import table.GameTableModel;
 
 public class Window extends JFrame {
 	private Game game = new Game();
@@ -28,7 +30,7 @@ public class Window extends JFrame {
 	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
 	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
-	private JTable gameTable = new JTable(new ModelGameTable());
+	private JTable gameTable = new JTable(new GameTableModel());
 	private InformationPanel infoPan = new InformationPanel();
 	
 	private JMenuBar menuBar = new JMenuBar();
@@ -44,7 +46,7 @@ public class Window extends JFrame {
 	public Window() {
 		build();
 		initMenu();
-		//game.giveAClue(game.bishop);
+		game.initGame();
 		//whiteCemetery.displayImage("assets/black/queen_black.png", 0);
 		//game.removeClue();
 		setVisible(true);
@@ -70,7 +72,7 @@ public class Window extends JFrame {
 		int widthPanUp = panUp.getWidth();
 		int heightPanUp = panUp.getHeight();
 		
-		GameTablePanel arrayPan = new GameTablePanel(gameTable);
+		GameTableView arrayPan = new GameTableView(gameTable);
 		JPanel chessPan = new JPanel();
 		JPanel cemeteryPan = new JPanel();
 		
@@ -153,17 +155,16 @@ public class Window extends JFrame {
 	public class StartGameWhiteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			game.initGame();
+			game.giveAClue(game.bishop);
 			infoPan.changeColorWhiteTimePanel(Color.CYAN);
 			infoPan.changeWhiteTime("coucou");
-			System.out.println("Tu joues avec les blancs.");
+			System.out.println("Tu joues avec les blancs."); 
 		}
 	}
 	
 	public class StartGameBlackListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			game.initGame();
 			infoPan.changeColorBlackTimePanel(Color.CYAN);
 			System.out.println("Tu joues avec les noirs.");
 		}

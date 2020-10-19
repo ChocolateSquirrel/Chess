@@ -1,18 +1,18 @@
-package window;
+package table;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class GameTablePanel extends JPanel {
+public class GameTableView extends JPanel {
 	private JTable gameTable;
 	
-	public GameTablePanel() {
+	public GameTableView() {
 		setLayout(new BorderLayout());
 	}
 	
-	public GameTablePanel(JTable gameTable) {
+	public GameTableView(JTable gameTable) {
 		this();
 		this.gameTable = gameTable;
 		gameTable.getTableHeader().setReorderingAllowed(false);

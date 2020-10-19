@@ -100,6 +100,8 @@ public class Game {
 		chessboard.add(pawnF2);
 		chessboard.add(pawnG2);
 		chessboard.add(pawnH2);
+		
+		chessboard.add(bishop);
 	}
 	
 	public ChessboardController getChessboard() {
