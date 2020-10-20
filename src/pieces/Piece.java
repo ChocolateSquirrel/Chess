@@ -3,6 +3,7 @@ package pieces;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 import game.Game;
 
@@ -53,12 +54,12 @@ public abstract class Piece implements Movable {
 	}
 	
 	@Override
-	public List<Square> getAttackSquares(List<Square> possibleCases, Game game) {
-		List<Square> listCasesWithPiece = possibleCases.stream().filter(c -> c.getIsEmpty()==false).collect(Collectors.toList());
+	public List<Square> getAttackSquares(ChessboardController chessboard) {
+		List<Square> listCasesWithPiece = getPossibleSquares(chessboard).stream().filter(c -> c.getIsEmpty()==false).collect(Collectors.toList());
 		List<Square> listCasesToAttack = listCasesWithPiece
 				.stream()
 				.filter(c -> {
-					Piece piece = game.getPieceAt(c.getPosX(), c.getPosY());
+					Piece piece = chessboard.getPieceAt(c.getPosX(), c.getPosY());
 					return !piece.getColor().equals(color.toLowerCase());
 				})
 				.collect(Collectors.toList());
@@ -66,8 +67,8 @@ public abstract class Piece implements Movable {
 	}
 
 	@Override
-	public List<Square> getAllowedSquares(List<Square> possibleCases) {
-		List<Square> list = possibleCases.stream().filter(c -> c.getIsEmpty()).collect(Collectors.toList());
+	public List<Square> getAllowedSquares(ChessboardController chessboard) {
+		List<Square> list = getPossibleSquares(chessboard).stream().filter(c -> c.getIsEmpty()).collect(Collectors.toList());
 		return list;
 	}
 

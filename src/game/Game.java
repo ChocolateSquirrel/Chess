@@ -1,13 +1,12 @@
 package game;
-import java.awt.Color;
-import java.awt.Dimension;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import chessboard.ChessboardController;
 import chessboard.ChessboardModel;
 import chessboard.ChessboardView;
-import chessboard.Square;
 import pieces.Bishop;
 import pieces.BlackPawn;
 import pieces.King;
@@ -16,9 +15,11 @@ import pieces.Piece;
 import pieces.Queen;
 import pieces.Tower;
 import pieces.WhitePawn;
+import window.Player;
 
-public class Game {
+public class Game implements Runnable {
 	
+	private Player player;
 	private List<Piece> listPieceInBlackCemetery = new ArrayList<Piece>();
 	private List<Piece> listPieceInWhiteCemetery = new ArrayList<Piece>();
 	private ChessboardController chessboard;
@@ -59,14 +60,13 @@ public class Game {
 	private Piece pawnG2 = new WhitePawn("pawn", 6, 6, "white");
 	private Piece pawnH2 = new WhitePawn("pawn", 7, 6, "white");
 	
-	public Piece bishop = new Bishop("bishop", 4, 3, "black");
-	
-	
-	public Game() {
+
+	public Game(Player player) {
 		chessboard = new ChessboardController(new ChessboardView(), new ChessboardModel());
+		this.player = player;
 	}
 	
-	public void initGame() {
+	public void init() {
 		chessboard.add(towerA8);
 		chessboard.add(towerA8);
 		chessboard.add(towerH8);
@@ -100,44 +100,31 @@ public class Game {
 		chessboard.add(pawnF2);
 		chessboard.add(pawnG2);
 		chessboard.add(pawnH2);
-		
-		chessboard.add(bishop);
 	}
 	
 	public ChessboardController getChessboard() {
 		return chessboard;
 	}
 	
-	/**
-	 * Display with different colors the squares where the piece can move (green for free squares and cyan for squares in which the piece can eat an other piece)
-	 * @param piece 
-	 */
-	public void giveAClue(Piece piece) {
-		for (Square square : piece.getAllowedSquares(piece.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()))) {
-			chessboard.getChessboardView().getJPanel(square).setBackground(Color.GREEN);
-		}
-		for (Square square : piece.getAttackSquares(piece.getPossibleSquares(chessboard.getChessboardModel().getGridSquares()), this)) {
-			chessboard.getChessboardView().getJPanel(square).setBackground(Color.CYAN);
-		}
+	
+
+	@Override
+	public void run() {
+		init();
+		System.out.println("ça va être chouette !");
+		Piece piece = chooseRandomPiece();
+		System.out.println(piece.toString());
+		chessboard.giveAClue(piece);
+		
 	}
 	
-	public void removeClue() {
-		 chessboard.getChessboardView().paintChessboard();
-	}
-	
-	public Piece getPieceAt(int posX, int posY) {
-		Square square = chessboard.getChessboardModel().getGridSquares()[posX][posY];
-		Piece piece = null;
-		if (!square.getIsEmpty()) {
-			for (Piece piece1 : chessboard.getPiecesOnChessboard()) {
-				if(piece1.getPosX()==posX && piece1.getPosY()==posY)
-					piece = piece1;
-			}
-		}
-		else {
-			System.out.println("No piece at " + posX + " : " + posY);
-		}
-		return piece;
+	private Piece chooseRandomPiece() {
+		List<Piece> myPieces = chessboard.getPiecesOnChessboard().stream()
+				.filter(p -> p.getColor().equalsIgnoreCase(player.getName()))
+				.collect(Collectors.toList());
+		int randomIndex = (int) (Math.random()*(myPieces.size()-1));
+		Piece pieceChoosen = myPieces.get(randomIndex);
+		return pieceChoosen;
 	}
 	
 	

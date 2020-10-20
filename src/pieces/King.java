@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 
 public class King extends Piece {
@@ -12,8 +13,9 @@ public class King extends Piece {
 	}
 
 	@Override
-	public List<Square> getPossibleSquares(Square[][] gridCases) {
+	public List<Square> getPossibleSquares(ChessboardController chessboard) {
 		List<Square> possibleCases = new ArrayList<Square>();
+		Square[][] gridCases = chessboard.getChessboardModel().getGridSquares();
 		if (posY != 0) {
 			possibleCases.add(gridCases[posX][posY - 1]);
 			if(posX != 7)

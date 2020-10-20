@@ -1,5 +1,6 @@
 package chessboard;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,18 @@ public class ChessboardController {
 	public ChessboardController(ChessboardView view, ChessboardModel model) {
 		chessboardView = view;
 		chessboardModel = model;
+	}
+	
+	public ChessboardView getChessboardView() {
+		return chessboardView;
+	}
+	
+	public ChessboardModel getChessboardModel() {
+		return chessboardModel;
+	}
+	
+	public List<Piece> getPiecesOnChessboard(){
+		return piecesOnChessboard;
 	}
 	
 	public void add(Piece piece) {
@@ -31,16 +44,36 @@ public class ChessboardController {
 		pieceSquare.setIsEmpty(true);
 	}
 	
-	public ChessboardView getChessboardView() {
-		return chessboardView;
+	/**
+	 * Display with different colors the squares where the piece can move (green for free squares and cyan for squares in which the piece can eat an other piece)
+	 * @param piece 
+	 */
+	public void giveAClue(Piece piece) {
+		for (Square square : piece.getAllowedSquares(this)) {
+			chessboardView.getJPanel(square).setBackground(Color.GREEN);
+		}
+		for (Square square : piece.getAttackSquares(this)) {
+			chessboardView.getJPanel(square).setBackground(Color.CYAN);
+		}
 	}
 	
-	public ChessboardModel getChessboardModel() {
-		return chessboardModel;
+	public void removeClue() {
+		 chessboardView.paintChessboard();
 	}
 	
-	public List<Piece> getPiecesOnChessboard(){
-		return piecesOnChessboard;
+	public Piece getPieceAt(int posX, int posY) {
+		Square square = chessboardModel.getGridSquares()[posX][posY];
+		Piece piece = null;
+		if (!square.getIsEmpty()) {
+			for (Piece piece1 : piecesOnChessboard) {
+				if(piece1.getPosX()==posX && piece1.getPosY()==posY)
+					piece = piece1;
+			}
+		}
+		else {
+			System.out.println("No piece at " + posX + " : " + posY);
+		}
+		return piece;
 	}
 	
 	

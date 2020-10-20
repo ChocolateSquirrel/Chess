@@ -19,14 +19,15 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
+import chessboard.ChessboardView;
 import game.Game;
 import pieces.Queen;
 import table.GameTableView;
 import table.GameTableModel;
 
 public class Window extends JFrame {
-	private Game game = new Game();
-	private JPanel pan = new JPanel();
+	private JPanel container = new JPanel();
+	private JPanel chessPan = new JPanel();
 	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
 	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
@@ -41,14 +42,13 @@ public class Window extends JFrame {
 	private JMenuItem white = new JMenuItem(Player.WHITE.getName());
 	private JMenuItem black = new JMenuItem(Player.BLACK.getName());
 	private JMenuItem help = new JMenuItem("help");
+	
+	
 
 	
 	public Window() {
 		build();
 		initMenu();
-		game.initGame();
-		//whiteCemetery.displayImage("assets/black/queen_black.png", 0);
-		//game.removeClue();
 		setVisible(true);
 	}
 	
@@ -60,11 +60,11 @@ public class Window extends JFrame {
 		setResizable(true);
 		
 		// Positioning different panels with layouts
-		pan.setBackground(Color.WHITE);
-		pan.setLayout(new BorderLayout());
-		pan.add(createPanUp(), BorderLayout.CENTER);
-		pan.add(createPanBottom(), BorderLayout.SOUTH);
-		setContentPane(pan);
+		container.setBackground(Color.WHITE);
+		container.setLayout(new BorderLayout());
+		container.add(createPanUp(), BorderLayout.CENTER);
+		container.add(createPanBottom(), BorderLayout.SOUTH);
+		setContentPane(container);
 	}
 	
 	private JPanel createPanUp() {
@@ -73,7 +73,7 @@ public class Window extends JFrame {
 		int heightPanUp = panUp.getHeight();
 		
 		GameTableView arrayPan = new GameTableView(gameTable);
-		JPanel chessPan = new JPanel();
+		
 		JPanel cemeteryPan = new JPanel();
 		
 		cemeteryPan.setLayout(new BorderLayout());
@@ -116,8 +116,9 @@ public class Window extends JFrame {
 		} else {
 			dimChessboard = new Dimension(widthChessPan, widthChessPan);
 		}
-		game.getChessboard().getChessboardView().setPreferredSize(dimChessboard);
-		chessPan.add(game.getChessboard().getChessboardView(), BorderLayout.CENTER);
+		ChessboardView chessboard = new ChessboardView();
+		chessboard.setPreferredSize(dimChessboard);
+		chessPan.add(chessboard, BorderLayout.CENTER);
 		panUp.add(chessPan, gbc);
 		
 		return panUp;
@@ -155,7 +156,11 @@ public class Window extends JFrame {
 	public class StartGameWhiteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			game.giveAClue(game.bishop);
+			Game game = new Game(Player.WHITE);
+			chessPan.removeAll();
+			chessPan.add(game.getChessboard().getChessboardView(), BorderLayout.CENTER);
+			Thread t = new Thread(game);
+			t.start();
 			infoPan.changeColorWhiteTimePanel(Color.CYAN);
 			infoPan.changeWhiteTime("coucou");
 			System.out.println("Tu joues avec les blancs."); 

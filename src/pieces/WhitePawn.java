@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 
 public class WhitePawn extends Piece {
@@ -13,8 +14,9 @@ public class WhitePawn extends Piece {
 	}
 
 	@Override
-	public List<Square> getPossibleSquares(Square[][] gridCases) {
+	public List<Square> getPossibleSquares(ChessboardController chessboard) {
 		List<Square> list = new ArrayList<Square>();
+		Square[][] gridCases = chessboard.getChessboardModel().getGridSquares();
 		switch (posY) {
 		// Finishing position.
 		case 0 :

@@ -2,6 +2,7 @@ package pieces;
 
 import java.util.List;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 
 public class Tower extends Piece {
@@ -11,7 +12,7 @@ public class Tower extends Piece {
 	}
 
 	@Override
-	public List<Square> getPossibleSquares(Square[][] gridCases) {
-		return Movable.straightMovement(gridCases, posX, posY);
+	public List<Square> getPossibleSquares(ChessboardController chessboard) {
+		return Movable.straightMovement(chessboard.getChessboardModel().getGridSquares(), posX, posY);
 	}
 }

@@ -3,6 +3,7 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 
 public class Knight extends Piece {
@@ -12,8 +13,9 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<Square> getPossibleSquares(Square[][] gridCases) {
+	public List<Square> getPossibleSquares(ChessboardController chessboard) {
 		List<Square> list = new ArrayList<Square>();
+		Square[][] gridCases = chessboard.getChessboardModel().getGridSquares();
 		// Movement which beginning on the right
 		if (posX + 2 < 8) {
 			if (posY-1>=0) 

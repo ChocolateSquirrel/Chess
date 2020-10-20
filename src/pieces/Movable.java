@@ -3,34 +3,34 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import chessboard.ChessboardController;
 import chessboard.Square;
 import game.Game;
 
 public interface Movable {
 	
 	/**
-	 * Store squares where the piece can move even if there is a piece (black or white) on this square.
-	 * @param gridSquares
+	 * Store squares where the piece can move even if there is a piece (black or white) on this square
+	 * @param chessboard
 	 * @return
 	 */
-	public List<Square> getPossibleSquares(Square[][] gridSquares);
+	public List<Square> getPossibleSquares(ChessboardController chessboard);
 	
 	
 	/**
-	 * Store squares where the piece can both move and eat opponent piece. 
-	 * @param possibleSquares : list of squares where the piece can go even if there is an other piece.
-	 * @param game
+	 * Store squares where the piece can both in the same time move and eat opponent piece. 
+	 * @param chessboard
 	 * @return
 	 */
-	public List<Square> getAttackSquares(List<Square> possibleSquares, Game game);
+	public List<Square> getAttackSquares(ChessboardController chessboard);
 	
 	
 	/**
 	 * Store free squares where the piece can move.
-	 * @param possibleSquares
+	 * @param chessboard
 	 * @return
 	 */
-	public List<Square> getAllowedSquares(List<Square> possibleSquares);
+	public List<Square> getAllowedSquares(ChessboardController chessboard);
 	
 	
 	/**
