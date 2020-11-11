@@ -44,6 +44,10 @@ public class ChessboardController {
 		pieceSquare.setIsEmpty(true);
 	}
 	
+	public void removeAllPiecesOnChessboard() {
+		piecesOnChessboard = new ArrayList<Piece>();
+	}
+	
 	/**
 	 * Display with different colors the squares where the piece can move (green for free squares and cyan for squares in which the piece can eat an other piece)
 	 * @param piece 
