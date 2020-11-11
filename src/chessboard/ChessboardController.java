@@ -57,7 +57,7 @@ public class ChessboardController {
 		}
 	}
 	
-	public void removeClue() {
+	public void removeClues() {
 		 chessboardView.paintChessboard();
 	}
 	

@@ -1,7 +1,9 @@
 package game;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import chessboard.ChessboardController;
@@ -19,6 +21,8 @@ import window.Player;
 
 public class Game implements Runnable {
 	
+	public AtomicBoolean isPlayed;
+	private Clock gameClock;
 	private Player player;
 	private List<Piece> listPieceInBlackCemetery = new ArrayList<Piece>();
 	private List<Piece> listPieceInWhiteCemetery = new ArrayList<Piece>();
@@ -111,11 +115,30 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 		init();
-		System.out.println("ça va être chouette !");
-		Piece piece = chooseRandomPiece();
-		System.out.println(piece.toString());
-		chessboard.giveAClue(piece);
+		isPlayed = new AtomicBoolean(true);
+		gameClock = new Clock(LocalTime.now());
+		while (isPlayed.get()) {
+			try {
+				Thread.sleep(1000);
+				System.out.println(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		
+//		Piece piece = chooseRandomPiece();
+//		System.out.println(piece.toString());
+//		chessboard.giveAClue(piece);
+//		try {
+//			Thread.sleep(5000);
+//			System.out.println(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		} finally {
+//			chessboard.removeClues();
+//		}
 	}
 	
 	private Piece chooseRandomPiece() {

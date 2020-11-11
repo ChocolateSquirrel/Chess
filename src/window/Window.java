@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -31,6 +32,8 @@ public class Window extends JFrame {
 	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
 	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
+	private Game currentGame;
+	private Thread currentThread;
 	private JTable gameTable = new JTable(new GameTableModel());
 	private InformationPanel infoPan = new InformationPanel();
 	
@@ -156,11 +159,19 @@ public class Window extends JFrame {
 	public class StartGameWhiteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Game game = new Game(Player.WHITE);
+			if (currentGame != null) {
+				currentGame.isPlayed.set(false);;
+				try {
+					currentThread.join();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+			currentGame = new Game(Player.WHITE);
 			chessPan.removeAll();
-			chessPan.add(game.getChessboard().getChessboardView(), BorderLayout.CENTER);
-			Thread t = new Thread(game);
-			t.start();
+			chessPan.add(currentGame.getChessboard().getChessboardView(), BorderLayout.CENTER);
+			currentThread = new Thread(currentGame);
+			currentThread.start();
 			infoPan.changeColorWhiteTimePanel(Color.CYAN);
 			infoPan.changeWhiteTime("coucou");
 			System.out.println("Tu joues avec les blancs."); 
