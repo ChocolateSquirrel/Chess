@@ -17,6 +17,7 @@ import pieces.Piece;
 import pieces.Queen;
 import pieces.Tower;
 import pieces.WhitePawn;
+import window.InformationPanel;
 import window.Player;
 
 public class Game implements Runnable {
@@ -27,6 +28,7 @@ public class Game implements Runnable {
 	private List<Piece> listPieceInBlackCemetery = new ArrayList<Piece>();
 	private List<Piece> listPieceInWhiteCemetery = new ArrayList<Piece>();
 	private ChessboardController chessboard;
+	private InformationPanel infoPan;
 	
 	//Black
 	private Piece towerA8 = new Tower("tower", 0, 0, "black");
@@ -67,6 +69,7 @@ public class Game implements Runnable {
 
 	public Game(Player player) {
 		chessboard = new ChessboardController(new ChessboardView(), new ChessboardModel());
+		infoPan = new InformationPanel();
 		this.player = player;
 	}
 	
@@ -110,7 +113,9 @@ public class Game implements Runnable {
 		return chessboard;
 	}
 	
-	
+	public InformationPanel getInfoPanel() {
+		return infoPan;
+	}
 
 	@Override
 	public void run() {
@@ -121,6 +126,7 @@ public class Game implements Runnable {
 			try {
 				Thread.sleep(1000);
 				System.out.println(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
+				infoPan.changeTime(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

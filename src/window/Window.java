@@ -29,13 +29,13 @@ import table.GameTableModel;
 public class Window extends JFrame {
 	private JPanel container = new JPanel();
 	private JPanel chessPan = new JPanel();
+	private JPanel infoPan = new JPanel();
 	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
 	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
 	
 	private Game currentGame;
 	private Thread currentThread;
 	private JTable gameTable = new JTable(new GameTableModel());
-	private InformationPanel infoPan = new InformationPanel();
 	
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu gameMenu = new JMenu("Game");
@@ -160,7 +160,8 @@ public class Window extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (currentGame != null) {
-				currentGame.isPlayed.set(false);;
+				currentGame.isPlayed.set(false);
+				infoPan.removeAll();
 				try {
 					currentThread.join();
 				} catch (InterruptedException e1) {
@@ -170,10 +171,11 @@ public class Window extends JFrame {
 			currentGame = new Game(Player.WHITE);
 			chessPan.removeAll();
 			chessPan.add(currentGame.getChessboard().getChessboardView(), BorderLayout.CENTER);
+			infoPan.add(currentGame.getInfoPanel());
 			currentThread = new Thread(currentGame);
 			currentThread.start();
-			infoPan.changeColorWhiteTimePanel(Color.CYAN);
-			infoPan.changeWhiteTime("coucou");
+			currentGame.getInfoPanel().changeColorWhiteTimePanel(Color.CYAN);
+			currentGame.getInfoPanel().changeWhiteTime("coucou");
 			System.out.println("Tu joues avec les blancs."); 
 		}
 	}
@@ -181,7 +183,7 @@ public class Window extends JFrame {
 	public class StartGameBlackListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			infoPan.changeColorBlackTimePanel(Color.CYAN);
+			currentGame.getInfoPanel().changeColorBlackTimePanel(Color.CYAN);
 			System.out.println("Tu joues avec les noirs.");
 		}
 	}

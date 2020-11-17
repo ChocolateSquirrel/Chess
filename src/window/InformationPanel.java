@@ -15,9 +15,9 @@ public class InformationPanel extends JPanel {
 	private JPanel timePan = new JPanel();
 	private JPanel whiteTimePan = new JPanel();
 	private JPanel blackTimePan = new JPanel();
-	private JLabel timeLabel = new JLabel("00:00", SwingConstants.CENTER);
-	private JLabel whiteTimeLabel = new JLabel("00:00 white", SwingConstants.CENTER);
-	private JLabel blackTimeLabel = new JLabel("00:00 black", SwingConstants.CENTER);
+	private JLabel timeLabel = new JLabel("00 : 00 : 00", SwingConstants.CENTER);
+	private JLabel whiteTimeLabel = new JLabel("00 : 00 : 00 white", SwingConstants.CENTER);
+	private JLabel blackTimeLabel = new JLabel("00 : 00 : 00 black", SwingConstants.CENTER);
 	
 	
 	public InformationPanel() {
