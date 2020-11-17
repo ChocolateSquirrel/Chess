@@ -107,6 +107,7 @@ public class Game implements Runnable {
 		chessboard.add(pawnF2);
 		chessboard.add(pawnG2);
 		chessboard.add(pawnH2);
+		chessboard.addListenerToSquarePanelInChessboard(this);
 	}
 	
 	public ChessboardController getChessboard() {
@@ -115,6 +116,10 @@ public class Game implements Runnable {
 	
 	public InformationPanel getInfoPanel() {
 		return infoPan;
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 
 	@Override
@@ -125,7 +130,6 @@ public class Game implements Runnable {
 		while (isPlayed.get()) {
 			try {
 				Thread.sleep(1000);
-				System.out.println(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
 				infoPan.changeTime(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

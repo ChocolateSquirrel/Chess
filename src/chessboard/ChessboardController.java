@@ -1,9 +1,14 @@
 package chessboard;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
+import game.Game;
+import listener.SquarePanelListener;
 import pieces.Piece;
 
 public class ChessboardController {
@@ -78,6 +83,30 @@ public class ChessboardController {
 			System.out.println("No piece at " + posX + " : " + posY);
 		}
 		return piece;
+	}
+	
+	public void addListenerToSquarePanelInChessboard(Game game) {
+		JPanel[][] gridPanels = chessboardView.getGridPanels();
+		for (int i = 1; i<9; i++) {
+			for (int j = 1; j<9; j++) {
+				gridPanels[i][j].addMouseListener(new SquarePanelListener(i, j, game));
+			}
+		}
+	}
+	
+	/**
+	 * Give the square from chessboardModel corresponding to the gridPanels[i][j] in the chessboardView.
+	 * @param i : abscisse of the SquarePanel in the gridPanels from the chessboardView
+	 * @param j : ordinate of the SquarePanel in the gridPanels from the chessboardView
+	 * @return square from the chessboardModel corresponding to the SquarePanel
+	 * @throws IllegalArgumentException if i or j is out of [1;8]
+	 */
+	public Square giveSquareOfASquarePanel(int i, int j) throws IllegalArgumentException {
+		try {
+			return chessboardModel.getSquareAt(i-1, j-1);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("les numéros de lignes et de colonnes doivent être compris entre 1 et 8.");
+		}
 	}
 	
 	
