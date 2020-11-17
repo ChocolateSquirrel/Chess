@@ -28,16 +28,21 @@ public class SquarePanelListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		game.getChessboard().getChessboardView().paintChessboard();
 		Square square = game.getChessboard().getChessboardModel().getSquareAt(i-1, j-1);
-		System.out.println(square.toString());
 		if (!square.getIsEmpty()) {
 			Piece piece = game.getChessboard().getPieceAt(i-1, j-1);
 			if (piece.getColor().equalsIgnoreCase(game.getPlayer().getName())) {
-				game.getChessboard().getChessboardView().getGridPanels()[i][j].setBackground(Color.RED);
-				game.getChessboard().giveAClue(piece);
+				if (!piece.getIsSelected()) {
+					piece.setIsSelected(true);
+					game.getChessboard().getChessboardView().getGridPanels()[i][j].setBackground(Color.RED);
+					game.getChessboard().giveAClue(piece);
+				} else {
+					piece.setIsSelected(false);
+					game.getChessboard().removeClues();	
+				}
 			}
 		}
-		
 	}
 
 	@Override

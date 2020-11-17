@@ -94,21 +94,4 @@ public class ChessboardController {
 		}
 	}
 	
-	/**
-	 * Give the square from chessboardModel corresponding to the gridPanels[i][j] in the chessboardView.
-	 * @param i : abscisse of the SquarePanel in the gridPanels from the chessboardView
-	 * @param j : ordinate of the SquarePanel in the gridPanels from the chessboardView
-	 * @return square from the chessboardModel corresponding to the SquarePanel
-	 * @throws IllegalArgumentException if i or j is out of [1;8]
-	 */
-	public Square giveSquareOfASquarePanel(int i, int j) throws IllegalArgumentException {
-		try {
-			return chessboardModel.getSquareAt(i-1, j-1);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("les numéros de lignes et de colonnes doivent être compris entre 1 et 8.");
-		}
-	}
-	
-	
-	
 }

@@ -54,7 +54,7 @@ public class Game implements Runnable {
 	private Piece knightB1 = new Knight("knight", 1, 7, "white");
 	private Piece knightG1 = new Knight("knight", 6, 7, "white");
 	private Piece bishopC1 = new Bishop("bishop", 2, 7, "white");
-	private Piece bishopF1 = new Bishop("bishop", 5, 7, "white");
+	private Piece bishopF1 = new Bishop("bishop", 3, 4, "white");
 	private Piece queenWhite = new Queen("queen", 3, 7, "white");
 	private Piece kingWhite = new King("king", 4, 7, "white");
 	private Piece pawnA2 = new WhitePawn("pawn", 0, 6, "white");
@@ -135,31 +135,7 @@ public class Game implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-		
-//		Piece piece = chooseRandomPiece();
-//		System.out.println(piece.toString());
-//		chessboard.giveAClue(piece);
-//		try {
-//			Thread.sleep(5000);
-//			System.out.println(gameClock.changeTimeInString(gameClock.giveElapsedTimeInSeconds(LocalTime.now())));
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		} finally {
-//			chessboard.removeClues();
-//		}
-	}
-	
-	private Piece chooseRandomPiece() {
-		List<Piece> myPieces = chessboard.getPiecesOnChessboard().stream()
-				.filter(p -> p.getColor().equalsIgnoreCase(player.getName()))
-				.collect(Collectors.toList());
-		int randomIndex = (int) (Math.random()*(myPieces.size()-1));
-		Piece pieceChoosen = myPieces.get(randomIndex);
-		return pieceChoosen;
-	}
-	
-	
+	}	
 	
 }

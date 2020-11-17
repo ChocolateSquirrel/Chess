@@ -47,6 +47,7 @@ public class Square {
 		return posY;
 	}
 	
+	
 	public int getRowOnChessboard() {
 		int row = 8 - posY;
 		return row;

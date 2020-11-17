@@ -12,6 +12,7 @@ public abstract class Piece implements Movable {
 	protected int posX;
 	protected int posY;
 	protected String color;
+	protected boolean isSelected;
 	
 	public Piece(String name, int posX, int posY, String color) {
 		this.name = name;
@@ -42,6 +43,14 @@ public abstract class Piece implements Movable {
 	
 	public String getColor() {
 		return color.toLowerCase();
+	}
+	
+	public boolean getIsSelected() {
+		return isSelected;
+	}
+	
+	public void setIsSelected(boolean answer) {
+		isSelected = answer;
 	}
 	
 	public  String toString() {
