@@ -36,7 +36,7 @@ public class Move {
 		currentGame.getChessboard().getChessboardView().getGridPanels()[currentPiece.getPosX()+1][currentPiece.getPosY()+1].setBackground(Color.RED);
 	}
 	
-	public void chooseArrivalSquare(Square potentialArrival) {
+	public void selectArrivalSquare(Square potentialArrival) {
 		List<Square> squaresWherePieceCanGo = new ArrayList<Square>();
 		squaresWherePieceCanGo.addAll(currentPiece.getAttackSquares(currentGame.getChessboard()));
 		squaresWherePieceCanGo.addAll(currentPiece.getAllowedSquares(currentGame.getChessboard()));
@@ -47,7 +47,13 @@ public class Move {
 	}
 	
 	public void move() {
-		currentGame.getChessboard().move(currentPiece, arrivalSquare);
+		if (currentPiece.getAllowedSquares(currentGame.getChessboard()).contains(arrivalSquare))
+			currentGame.getChessboard().moveOnFreeSquare(currentPiece, arrivalSquare);
+		else {
+			currentGame.getCemeteryPanel().addPieceInCemetery(currentGame.getChessboard().getPieceAt(arrivalSquare.getPosX(), arrivalSquare.getPosY()));
+			currentGame.getChessboard().moveAndEat(currentPiece, arrivalSquare);
+		}
+			
 	}
 	
 	public String toString() {

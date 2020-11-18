@@ -1,44 +1,39 @@
 package window;
-import java.awt.Color;
-import java.awt.GridLayout;
+
+import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
-import chessboard.SquarePanel;
+import pieces.Piece;
 
 public class CemeteryPanel extends JPanel {
-	private static SquarePanel[] gridPanels = new SquarePanel[16];
+	private CemeteryWhitePanel whiteCemetery = new CemeteryWhitePanel();
+	private CemeteryBlackPanel blackCemetery = new CemeteryBlackPanel();
 	
-	public CemeteryPanel(String color) {
-		setLayout(new GridLayout(4, 4));
-		
-		switch (color) {
-		case "white":
-			for (int i = 0; i<16; i++) {
-				gridPanels[i] = new SquarePanel();
-				gridPanels[i].setBackground(Color.LIGHT_GRAY);
-				add(gridPanels[i]);
-		
-			}
-			break;
-		case "black":
-			for (int i = 0; i<16; i++) {
-				gridPanels[i] = new SquarePanel();
-				gridPanels[i].setBackground(Color.GRAY);
-				add(gridPanels[i]);
-			}
-			break;	
-		default :
-			System.out.println("No color for that.");
-		}	
+	public CemeteryPanel() {
+		setLayout(new BorderLayout());
+		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blackCemetery, whiteCemetery);
+		split.setDividerLocation(225);
+		add(split, BorderLayout.CENTER);
 	}
 	
-	/**
-	 * Display image in the CasePanel
-	 * @param path : relative path to the image
-	 * @param number : number of loosing pieces.
-	 */
-	public void displayImage(String path, int number) {
-		gridPanels[number].addImageIcon(path);
+	public CemeteryWhitePanel getWhiteCemetery() {
+		return whiteCemetery;
 	}
+	
+	public CemeteryBlackPanel getBlackCemetery() {
+		return blackCemetery;
+	}
+	
+	public void addPieceInCemetery(Piece piece) {
+		if (piece.getColor().equalsIgnoreCase("black")) {
+			String path = "assets/" + piece.getColor() + "/" + piece.getName() + "_" + piece.getColor() + ".png";
+			whiteCemetery.displayImage(path, whiteCemetery.getNumberOfPiece());	
+		} else {
+			String path = "assets/" + piece.getColor() + "/" + piece.getName() + "_" + piece.getColor() + ".png";
+			blackCemetery.displayImage(path, blackCemetery.getNumberOfPiece());	
+		}
+	}
+
 }

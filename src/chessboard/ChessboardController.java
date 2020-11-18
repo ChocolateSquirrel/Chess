@@ -15,6 +15,7 @@ public class ChessboardController {
 	private ChessboardView chessboardView;
 	private ChessboardModel chessboardModel;
 	private List<Piece> piecesOnChessboard = new ArrayList<Piece>();
+	private List<Piece> piecesOutChessboard = new ArrayList<Piece>();
 	
 	public ChessboardController(ChessboardView view, ChessboardModel model) {
 		chessboardView = view;
@@ -33,6 +34,10 @@ public class ChessboardController {
 		return piecesOnChessboard;
 	}
 	
+	public List<Piece> getPiecesOutChessboard(){
+		return piecesOutChessboard;
+	}
+	
 	public void add(Piece piece) {
 		Square pieceSquare = chessboardModel.getSquareAt(piece.getPosX(), piece.getPosY());
 		if (pieceSquare.getIsEmpty()) {
@@ -42,12 +47,25 @@ public class ChessboardController {
 		}
 	}
 	
-	public void move(Piece piece, Square newSquare) {
-		Piece pieceToMove = piece;
-		remove(piece);
-		pieceToMove.setPosX(newSquare.getPosX());
-		pieceToMove.setPosY(newSquare.getPosY());
-		add(pieceToMove);
+	public void moveOnFreeSquare(Piece piece, Square newSquare) {
+		if (newSquare.getIsEmpty()) {
+			Piece pieceToMove = piece;
+			remove(piece);
+			pieceToMove.setPosX(newSquare.getPosX());
+			pieceToMove.setPosY(newSquare.getPosY());
+			add(pieceToMove);
+		}
+	}
+	
+	public void moveAndEat(Piece piece, Square newSquare) {
+		if (!newSquare.getIsEmpty()) {
+			Piece pieceToEat = getPieceAt(newSquare.getPosX(), newSquare.getPosY());
+			if (!pieceToEat.getColor().equalsIgnoreCase(piece.getColor())) {
+				remove(pieceToEat);
+				piecesOutChessboard.add(pieceToEat);
+				moveOnFreeSquare(piece, newSquare);
+			}
+		}
 	}
 	
 	public void remove(Piece piece) {

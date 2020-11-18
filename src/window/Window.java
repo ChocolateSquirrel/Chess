@@ -30,8 +30,7 @@ public class Window extends JFrame {
 	private JPanel container = new JPanel();
 	private JPanel chessPan = new JPanel();
 	private JPanel infoPan = new JPanel();
-	private CemeteryPanel whiteCemetery = new CemeteryPanel("white");
-	private CemeteryPanel blackCemetery = new CemeteryPanel("black");
+	private CemeteryPanel cemeteryPan = new CemeteryPanel();
 	
 	private Game currentGame;
 	private Thread currentThread;
@@ -76,13 +75,6 @@ public class Window extends JFrame {
 		int heightPanUp = panUp.getHeight();
 		
 		GameTableView arrayPan = new GameTableView(gameTable);
-		
-		JPanel cemeteryPan = new JPanel();
-		
-		cemeteryPan.setLayout(new BorderLayout());
-		JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blackCemetery, whiteCemetery);
-		split.setDividerLocation(225);
-		cemeteryPan.add(split, BorderLayout.CENTER);
 		
 		Dimension dimArray = new Dimension(3*widthPanUp/21, heightPanUp);
 		Dimension dimCemetery = new Dimension(3*widthPanUp/21, heightPanUp);
@@ -172,6 +164,7 @@ public class Window extends JFrame {
 			chessPan.removeAll();
 			chessPan.add(currentGame.getChessboard().getChessboardView(), BorderLayout.CENTER);
 			infoPan.add(currentGame.getInfoPanel());
+			cemeteryPan.add(currentGame.getCemeteryPanel());
 			currentThread = new Thread(currentGame);
 			currentThread.start();
 			currentGame.getInfoPanel().changeColorWhiteTimePanel(Color.CYAN);

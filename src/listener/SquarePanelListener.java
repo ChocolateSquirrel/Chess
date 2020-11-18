@@ -22,19 +22,29 @@ public class SquarePanelListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
 		Square square = game.getChessboard().getChessboardModel().getSquareAt(i-1, j-1);
+		game.getChessboard().getChessboardView().paintChessboard();	
 		if (!square.getIsEmpty()) {
-			game.getChessboard().getChessboardView().paintChessboard();
 			Piece piece = game.getChessboard().getPieceAt(i-1, j-1);
+			
 			if (piece.getColor().equalsIgnoreCase(game.getPlayer().getName())) {
 				game.getCurrentMove().selectPiece(piece);;
 				game.getChessboard().giveAClue(piece);
 				System.out.println(game.getCurrentMove().toString());
+			} else {
+				if (game.getCurrentMove().getPieceSelected()) {
+					game.getCurrentMove().selectArrivalSquare(square);
+					if (game.getCurrentMove().getArrivalSquareSelected()) {
+						System.out.println(game.getCurrentMove().toString());
+						game.getCurrentMove().move();
+						game.setCurrentMove(new Move(game));
+					}
+				}
 			}
+				
 		} else {
 			if (game.getCurrentMove().getPieceSelected()) {
-				game.getCurrentMove().chooseArrivalSquare(square);
+				game.getCurrentMove().selectArrivalSquare(square);
 				if (game.getCurrentMove().getArrivalSquareSelected()) {
 					System.out.println(game.getCurrentMove().toString());
 					game.getCurrentMove().move();
