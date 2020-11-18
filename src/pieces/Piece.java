@@ -38,19 +38,11 @@ public abstract class Piece implements Movable {
 	}
 	
 	public void setPosY(int posY) {
-		this.posY = posX;
+		this.posY = posY;
 	}
 	
 	public String getColor() {
 		return color.toLowerCase();
-	}
-	
-	public boolean getIsSelected() {
-		return isSelected;
-	}
-	
-	public void setIsSelected(boolean answer) {
-		isSelected = answer;
 	}
 	
 	public  String toString() {

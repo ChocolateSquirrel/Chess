@@ -42,6 +42,14 @@ public class ChessboardController {
 		}
 	}
 	
+	public void move(Piece piece, Square newSquare) {
+		Piece pieceToMove = piece;
+		remove(piece);
+		pieceToMove.setPosX(newSquare.getPosX());
+		pieceToMove.setPosY(newSquare.getPosY());
+		add(pieceToMove);
+	}
+	
 	public void remove(Piece piece) {
 		Square pieceSquare = chessboardModel.getSquareAt(piece.getPosX(), piece.getPosY());
 		piecesOnChessboard.remove(piece);
@@ -49,9 +57,6 @@ public class ChessboardController {
 		pieceSquare.setIsEmpty(true);
 	}
 	
-	public void removeAllPiecesOnChessboard() {
-		piecesOnChessboard = new ArrayList<Piece>();
-	}
 	
 	/**
 	 * Display with different colors the squares where the piece can move (green for free squares and cyan for squares in which the piece can eat an other piece)

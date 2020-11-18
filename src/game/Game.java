@@ -23,6 +23,7 @@ import window.Player;
 public class Game implements Runnable {
 	
 	public AtomicBoolean isPlayed;
+	private Move currentMove;
 	private Clock gameClock;
 	private Player player;
 	private List<Piece> listPieceInBlackCemetery = new ArrayList<Piece>();
@@ -71,6 +72,7 @@ public class Game implements Runnable {
 		chessboard = new ChessboardController(new ChessboardView(), new ChessboardModel());
 		infoPan = new InformationPanel();
 		this.player = player;
+		currentMove = new Move(this);
 	}
 	
 	public void init() {
@@ -120,6 +122,14 @@ public class Game implements Runnable {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public Move getCurrentMove() {
+		return currentMove;
+	}
+	
+	public void setCurrentMove(Move move) {
+		currentMove = move;
 	}
 
 	@Override

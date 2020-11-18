@@ -1,12 +1,11 @@
 package listener;
 
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import chessboard.ChessboardController;
 import chessboard.Square;
 import game.Game;
+import game.Move;
 import pieces.Piece;
 
 public class SquarePanelListener implements MouseListener {
@@ -24,25 +23,31 @@ public class SquarePanelListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		Square square = game.getChessboard().getChessboardModel().getSquareAt(i-1, j-1);
+		if (!square.getIsEmpty()) {
+			game.getChessboard().getChessboardView().paintChessboard();
+			Piece piece = game.getChessboard().getPieceAt(i-1, j-1);
+			if (piece.getColor().equalsIgnoreCase(game.getPlayer().getName())) {
+				game.getCurrentMove().selectPiece(piece);;
+				game.getChessboard().giveAClue(piece);
+				System.out.println(game.getCurrentMove().toString());
+			}
+		} else {
+			if (game.getCurrentMove().getPieceSelected()) {
+				game.getCurrentMove().chooseArrivalSquare(square);
+				if (game.getCurrentMove().getArrivalSquareSelected()) {
+					System.out.println(game.getCurrentMove().toString());
+					game.getCurrentMove().move();
+					game.setCurrentMove(new Move(game));
+				game.getChessboard().getChessboardView().paintChessboard();
+				}	
+			}
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		game.getChessboard().getChessboardView().paintChessboard();
-		Square square = game.getChessboard().getChessboardModel().getSquareAt(i-1, j-1);
-		if (!square.getIsEmpty()) {
-			Piece piece = game.getChessboard().getPieceAt(i-1, j-1);
-			if (piece.getColor().equalsIgnoreCase(game.getPlayer().getName())) {
-				if (!piece.getIsSelected()) {
-					piece.setIsSelected(true);
-					game.getChessboard().getChessboardView().getGridPanels()[i][j].setBackground(Color.RED);
-					game.getChessboard().giveAClue(piece);
-				} else {
-					piece.setIsSelected(false);
-					game.getChessboard().removeClues();	
-				}
-			}
-		}
+		
 	}
 
 	@Override
